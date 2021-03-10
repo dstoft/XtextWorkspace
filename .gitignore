@@ -1,1 +1,6 @@
 .metadata/
+**/bin/**
+**/src-gen/**
+**/xtend-gen/**
+**/test-bin/**
+**/model/generated/**
