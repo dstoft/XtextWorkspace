@@ -8,7 +8,21 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import sdu.mdsd.math.interpreter.mathInterpreter.*
+import sdu.mdsd.math.interpreter.mathInterpreter.Div
+import sdu.mdsd.math.interpreter.mathInterpreter.Factor
+import sdu.mdsd.math.interpreter.mathInterpreter.MathExp
+import sdu.mdsd.math.interpreter.mathInterpreter.Minus
+import sdu.mdsd.math.interpreter.mathInterpreter.Mult
+import sdu.mdsd.math.interpreter.mathInterpreter.Plus
+import sdu.mdsd.math.interpreter.mathInterpreter.Primary
+import sdu.mdsd.math.interpreter.mathInterpreter.Exp
+import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.PrimaryImpl
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.NumberImpl
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.ParenthesisImpl
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.PlusImpl
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.MinusImpl
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpOpImpl
 
 /**
  * Generates code from your model files on save.
@@ -35,20 +49,123 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	}
 	
 	def int computeExp(Exp exp) {
+		System.out.println("Computing expression!")
+		var left = 0
 		
+		if(exp.left === null) {
+			System.out.println("left is null!")
+		}
+		if(exp.operator === null) {
+			System.out.println("op is null!")
+		}
+		if(exp.right === null) {
+			System.out.println("right is null!")
+		}
+		
+		
+		switch exp.left {
+			Exp: left = (exp.left as Exp).computeExp
+			Factor: return (exp.left as Factor).computeFactor
+			default: System.out.println("Left is default")
+		}
+		switch exp.operator {
+			Plus: left + exp.right.computeFactor
+			Minus: left - exp.right.computeFactor
+			default: left
+		}
+//		switch exp.right {
+//			Exp: System.out.println("right is exp")
+//			Factor: System.out.println("right is factor")
+//			//default: System.out.println("right is default")
+//		}
+		
+//		if(exp.operator === null) {
+//			System.out.println("Operator is null!")
+//		} else {
+//			System.out.println("Operator is null!")
+//		}
+//		
+//		if(exp.right === null) {
+//			System.out.println("Right is null!")
+//		} else {
+//			System.out.println("Right is not null!")
+//			switch exp.operator {
+//				Plus: left += exp.right.computeFactor
+//				Minus: left -= exp.right.computeFactor
+//				default: System.out.println("operator is not minus or plus!!")
+//			}
+//		}
+//		
+//		System.out.println("Before left: " + left)
+//		
+//		switch exp.left {
+//			Exp: left += (exp.left as Exp).computeExp
+//			Factor: left += (exp.left as Factor).computeFactor
+//		}
+//		
+//		System.out.println("Ending computing expression!" + left)
+		
+		//return left
+		/* if(exp.left instanceof Exp) {
+			left = (exp.left as Exp).computeExp
+		} else if(exp.left instanceof Factor) {
+			left = (exp.left as Factor).computeFactor
+		} */
 		//val left = exp.left.computePrim
-		//switch exp.operator {
+		//switch exp.operator { 
 		//	Plus: left+exp.right.computeExp
 		//	Minus: left-exp.right.computeExp
 			//Mult: left*exp.right.computeExp
 			//Div: left/exp.right.computeExp
 		//	default: left
 		//}
-		return 87
+		//return 87
+	}
+	
+	def int computeFactor(Factor factor) {
+		System.out.println("Computing factor!")
+		
+		var left = 0
+		
+		switch factor.left {
+			Factor: left = (factor.left as Factor).computeFactor
+			Primary: left = (factor.left as Primary).computePrim
+		}
+		
+		//System.out.println("Factor: " + left)
+		
+		switch factor.operator {
+			Mult: left * factor.right.computePrim
+			Div: left / factor.right.computePrim
+			default: left
+		}
 	}
 	
 	def int computePrim(Primary primary) { 
-		87
+		System.out.println("Computing primary!")
+//		if(primary instanceof Number) {
+//			return (primary as Number).intValue
+//		} else if(primary instanceof Parenthesis) {
+//			return (primary as Parenthesis).exp.computeExp
+//		} else {
+//			return -1000
+//		}
+		switch primary {
+			Number: return (primary as Number).intValue
+			Parenthesis: return (primary as Parenthesis).exp.computeExp
+			PrimaryImpl: return (primary as PrimaryImpl).computePrim
+			default: -1000
+		}
+	}
+	
+	def int computePrim(PrimaryImpl primary) {
+		
+		System.out.println("Computing primaryImpl!")
+		switch primary {
+			NumberImpl: return (primary as NumberImpl).value
+			ParenthesisImpl: return (primary as ParenthesisImpl).exp.computeExp
+			default: -100
+		}
 	}
 
 	//
@@ -62,5 +179,7 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	def CharSequence displayFactor(Factor fac) ''''''
 	def dispatch String displayOp(Plus op)  { "+" }
 	def dispatch String displayOp(Minus op) { "-" }
+	def dispatch String displayOp(Mult op) { "*" }
+	def dispatch String displayOp(Div op) { "/" }
 	def CharSequence displayFactor(Primary primary) { "?" }
 }

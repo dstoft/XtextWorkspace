@@ -7,7 +7,7 @@ MathExp:
 ;
 
 Exp:
-	left=Factor ((operator=ExpOp {Exp.left=current}) right=Factor)*
+	left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*
 ;
 
 ExpOp:
@@ -15,7 +15,7 @@ ExpOp:
 ;
 
 Factor:
-	left=Primary ((operator=FactorOp {Factor.left=current}) right=Primary)*
+	left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*
 ;
 
 FactorOp:
