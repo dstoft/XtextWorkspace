@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package
+			uri = "http://www.mdsd.sdu/tut1/Tut1Dsl"
+			class = "sdu.mdsd.tut1.tut1Dsl.Tut1DslPackage"
+			genModel = "model/generated/Tut1Dsl.genmodel" />
+	</extension>
+</plugin>
