@@ -56,18 +56,17 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		private final Assignment cLeftAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cLeftFactorParserRuleCall_0_0 = (RuleCall)cLeftAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
-		private final RuleCall cOperatorExpOpParserRuleCall_1_0_0_0 = (RuleCall)cOperatorAssignment_1_0_0.eContents().get(0);
-		private final Action cExpLeftLeftAction_1_0_1 = (Action)cGroup_1_0.eContents().get(1);
-		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cRightFactorParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
+		private final Action cExpLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cOperatorExpOpParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
+		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightFactorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//Exp:
-		//	left=Factor ((operator=ExpOp {ExpLeft.left=current}) right=Factor)*;
+		//	left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//left=Factor ((operator=ExpOp {ExpLeft.left=current}) right=Factor)*
+		//left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*
 		public Group getGroup() { return cGroup; }
 		
 		//left=Factor
@@ -76,26 +75,23 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		//Factor
 		public RuleCall getLeftFactorParserRuleCall_0_0() { return cLeftFactorParserRuleCall_0_0; }
 		
-		//((operator=ExpOp {ExpLeft.left=current}) right=Factor)*
+		//({Exp.left=current} operator=ExpOp right=Factor)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//(operator=ExpOp {ExpLeft.left=current})
-		public Group getGroup_1_0() { return cGroup_1_0; }
+		//{Exp.left=current}
+		public Action getExpLeftAction_1_0() { return cExpLeftAction_1_0; }
 		
 		//operator=ExpOp
-		public Assignment getOperatorAssignment_1_0_0() { return cOperatorAssignment_1_0_0; }
+		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 		
 		//ExpOp
-		public RuleCall getOperatorExpOpParserRuleCall_1_0_0_0() { return cOperatorExpOpParserRuleCall_1_0_0_0; }
-		
-		//{ExpLeft.left=current}
-		public Action getExpLeftLeftAction_1_0_1() { return cExpLeftLeftAction_1_0_1; }
+		public RuleCall getOperatorExpOpParserRuleCall_1_1_0() { return cOperatorExpOpParserRuleCall_1_1_0; }
 		
 		//right=Factor
-		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
+		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 		
 		//Factor
-		public RuleCall getRightFactorParserRuleCall_1_1_0() { return cRightFactorParserRuleCall_1_1_0; }
+		public RuleCall getRightFactorParserRuleCall_1_2_0() { return cRightFactorParserRuleCall_1_2_0; }
 	}
 	public class ExpOpElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "sdu.mdsd.math.interpreter.MathInterpreter.ExpOp");
@@ -138,18 +134,17 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		private final Assignment cLeftAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cLeftPrimaryParserRuleCall_0_0 = (RuleCall)cLeftAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
-		private final RuleCall cOperatorFactorOpParserRuleCall_1_0_0_0 = (RuleCall)cOperatorAssignment_1_0_0.eContents().get(0);
-		private final Action cFactorLeftLeftAction_1_0_1 = (Action)cGroup_1_0.eContents().get(1);
-		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cRightPrimaryParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
+		private final Action cFactorLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cOperatorFactorOpParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
+		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightPrimaryParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//Factor:
-		//	left=Primary ((operator=FactorOp {FactorLeft.left=current}) right=Primary)*;
+		//	left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//left=Primary ((operator=FactorOp {FactorLeft.left=current}) right=Primary)*
+		//left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*
 		public Group getGroup() { return cGroup; }
 		
 		//left=Primary
@@ -158,26 +153,23 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		//Primary
 		public RuleCall getLeftPrimaryParserRuleCall_0_0() { return cLeftPrimaryParserRuleCall_0_0; }
 		
-		//((operator=FactorOp {FactorLeft.left=current}) right=Primary)*
+		//({Factor.left=current} operator=FactorOp right=Primary)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//(operator=FactorOp {FactorLeft.left=current})
-		public Group getGroup_1_0() { return cGroup_1_0; }
+		//{Factor.left=current}
+		public Action getFactorLeftAction_1_0() { return cFactorLeftAction_1_0; }
 		
 		//operator=FactorOp
-		public Assignment getOperatorAssignment_1_0_0() { return cOperatorAssignment_1_0_0; }
+		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 		
 		//FactorOp
-		public RuleCall getOperatorFactorOpParserRuleCall_1_0_0_0() { return cOperatorFactorOpParserRuleCall_1_0_0_0; }
-		
-		//{FactorLeft.left=current}
-		public Action getFactorLeftLeftAction_1_0_1() { return cFactorLeftLeftAction_1_0_1; }
+		public RuleCall getOperatorFactorOpParserRuleCall_1_1_0() { return cOperatorFactorOpParserRuleCall_1_1_0; }
 		
 		//right=Primary
-		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
+		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 		
 		//Primary
-		public RuleCall getRightPrimaryParserRuleCall_1_1_0() { return cRightPrimaryParserRuleCall_1_1_0; }
+		public RuleCall getRightPrimaryParserRuleCall_1_2_0() { return cRightPrimaryParserRuleCall_1_2_0; }
 	}
 	public class FactorOpElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "sdu.mdsd.math.interpreter.MathInterpreter.FactorOp");
@@ -343,7 +335,7 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 	}
 	
 	//Exp:
-	//	left=Factor ((operator=ExpOp {ExpLeft.left=current}) right=Factor)*;
+	//	left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*;
 	public ExpElements getExpAccess() {
 		return pExp;
 	}
@@ -363,7 +355,7 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 	}
 	
 	//Factor:
-	//	left=Primary ((operator=FactorOp {FactorLeft.left=current}) right=Primary)*;
+	//	left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*;
 	public FactorElements getFactorAccess() {
 		return pFactor;
 	}

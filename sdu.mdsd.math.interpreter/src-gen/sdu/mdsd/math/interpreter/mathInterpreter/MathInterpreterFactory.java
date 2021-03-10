@@ -96,15 +96,6 @@ public interface MathInterpreterFactory extends EFactory
   Number createNumber();
 
   /**
-   * Returns a new object of class '<em>Exp Left</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exp Left</em>'.
-   * @generated
-   */
-  ExpLeft createExpLeft();
-
-  /**
    * Returns a new object of class '<em>Plus</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -121,15 +112,6 @@ public interface MathInterpreterFactory extends EFactory
    * @generated
    */
   Minus createMinus();
-
-  /**
-   * Returns a new object of class '<em>Factor Left</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Factor Left</em>'.
-   * @generated
-   */
-  FactorLeft createFactorLeft();
 
   /**
    * Returns a new object of class '<em>Mult</em>'.

@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
+import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
 
 /**
@@ -27,6 +28,7 @@ import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
  * <ul>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpImpl#getOperator <em>Operator</em>}</li>
+ *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpImpl#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,6 +54,16 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
    * @ordered
    */
   protected ExpOp operator;
+
+  /**
+   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRight()
+   * @generated
+   * @ordered
+   */
+  protected Factor right;
 
   /**
    * <!-- begin-user-doc -->
@@ -180,6 +192,56 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
    * @generated
    */
   @Override
+  public Factor getRight()
+  {
+    return right;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRight(Factor newRight, NotificationChain msgs)
+  {
+    Factor oldRight = right;
+    right = newRight;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MathInterpreterPackage.EXP__RIGHT, oldRight, newRight);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setRight(Factor newRight)
+  {
+    if (newRight != right)
+    {
+      NotificationChain msgs = null;
+      if (right != null)
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MathInterpreterPackage.EXP__RIGHT, null, msgs);
+      if (newRight != null)
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MathInterpreterPackage.EXP__RIGHT, null, msgs);
+      msgs = basicSetRight(newRight, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MathInterpreterPackage.EXP__RIGHT, newRight, newRight));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -188,6 +250,8 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
         return basicSetLeft(null, msgs);
       case MathInterpreterPackage.EXP__OPERATOR:
         return basicSetOperator(null, msgs);
+      case MathInterpreterPackage.EXP__RIGHT:
+        return basicSetRight(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -206,6 +270,8 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
         return getLeft();
       case MathInterpreterPackage.EXP__OPERATOR:
         return getOperator();
+      case MathInterpreterPackage.EXP__RIGHT:
+        return getRight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -225,6 +291,9 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
         return;
       case MathInterpreterPackage.EXP__OPERATOR:
         setOperator((ExpOp)newValue);
+        return;
+      case MathInterpreterPackage.EXP__RIGHT:
+        setRight((Factor)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -246,6 +315,9 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
       case MathInterpreterPackage.EXP__OPERATOR:
         setOperator((ExpOp)null);
         return;
+      case MathInterpreterPackage.EXP__RIGHT:
+        setRight((Factor)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -264,6 +336,8 @@ public class ExpImpl extends MinimalEObjectImpl.Container implements Exp
         return left != null;
       case MathInterpreterPackage.EXP__OPERATOR:
         return operator != null;
+      case MathInterpreterPackage.EXP__RIGHT:
+        return right != null;
     }
     return super.eIsSet(featureID);
   }

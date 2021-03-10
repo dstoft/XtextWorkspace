@@ -12,10 +12,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
-import sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
-import sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterFactory;
@@ -95,13 +93,6 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass expLeftEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass plusEClass = null;
 
   /**
@@ -110,13 +101,6 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
    * @generated
    */
   private EClass minusEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass factorLeftEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -256,6 +240,17 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
    * @generated
    */
   @Override
+  public EReference getExp_Right()
+  {
+    return (EReference)expEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getExpOp()
   {
     return expOpEClass;
@@ -292,6 +287,17 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
   public EReference getFactor_Operator()
   {
     return (EReference)factorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFactor_Right()
+  {
+    return (EReference)factorEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -366,28 +372,6 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
    * @generated
    */
   @Override
-  public EClass getExpLeft()
-  {
-    return expLeftEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getExpLeft_Right()
-  {
-    return (EReference)expLeftEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getPlus()
   {
     return plusEClass;
@@ -402,28 +386,6 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
   public EClass getMinus()
   {
     return minusEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getFactorLeft()
-  {
-    return factorLeftEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getFactorLeft_Right()
-  {
-    return (EReference)factorLeftEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -485,12 +447,14 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
     expEClass = createEClass(EXP);
     createEReference(expEClass, EXP__LEFT);
     createEReference(expEClass, EXP__OPERATOR);
+    createEReference(expEClass, EXP__RIGHT);
 
     expOpEClass = createEClass(EXP_OP);
 
     factorEClass = createEClass(FACTOR);
     createEReference(factorEClass, FACTOR__LEFT);
     createEReference(factorEClass, FACTOR__OPERATOR);
+    createEReference(factorEClass, FACTOR__RIGHT);
 
     factorOpEClass = createEClass(FACTOR_OP);
 
@@ -502,15 +466,9 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
     numberEClass = createEClass(NUMBER);
     createEAttribute(numberEClass, NUMBER__VALUE);
 
-    expLeftEClass = createEClass(EXP_LEFT);
-    createEReference(expLeftEClass, EXP_LEFT__RIGHT);
-
     plusEClass = createEClass(PLUS);
 
     minusEClass = createEClass(MINUS);
-
-    factorLeftEClass = createEClass(FACTOR_LEFT);
-    createEReference(factorLeftEClass, FACTOR_LEFT__RIGHT);
 
     multEClass = createEClass(MULT);
 
@@ -548,10 +506,8 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
     // Add supertypes to classes
     parenthesisEClass.getESuperTypes().add(this.getPrimary());
     numberEClass.getESuperTypes().add(this.getPrimary());
-    expLeftEClass.getESuperTypes().add(this.getExp());
     plusEClass.getESuperTypes().add(this.getExpOp());
     minusEClass.getESuperTypes().add(this.getExpOp());
-    factorLeftEClass.getESuperTypes().add(this.getFactor());
     multEClass.getESuperTypes().add(this.getFactorOp());
     divEClass.getESuperTypes().add(this.getFactorOp());
 
@@ -562,12 +518,14 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
     initEClass(expEClass, Exp.class, "Exp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExp_Left(), ecorePackage.getEObject(), null, "left", null, 0, 1, Exp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getExp_Operator(), this.getExpOp(), null, "operator", null, 0, 1, Exp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExp_Right(), this.getFactor(), null, "right", null, 0, 1, Exp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(expOpEClass, ExpOp.class, "ExpOp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(factorEClass, Factor.class, "Factor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFactor_Left(), ecorePackage.getEObject(), null, "left", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFactor_Operator(), this.getFactorOp(), null, "operator", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFactor_Right(), this.getPrimary(), null, "right", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(factorOpEClass, FactorOp.class, "FactorOp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -579,15 +537,9 @@ public class MathInterpreterPackageImpl extends EPackageImpl implements MathInte
     initEClass(numberEClass, sdu.mdsd.math.interpreter.mathInterpreter.Number.class, "Number", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNumber_Value(), ecorePackage.getEInt(), "value", null, 0, 1, sdu.mdsd.math.interpreter.mathInterpreter.Number.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(expLeftEClass, ExpLeft.class, "ExpLeft", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExpLeft_Right(), this.getFactor(), null, "right", null, 0, 1, ExpLeft.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(factorLeftEClass, FactorLeft.class, "FactorLeft", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFactorLeft_Right(), this.getPrimary(), null, "right", null, 0, 1, FactorLeft.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(multEClass, Mult.class, "Mult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

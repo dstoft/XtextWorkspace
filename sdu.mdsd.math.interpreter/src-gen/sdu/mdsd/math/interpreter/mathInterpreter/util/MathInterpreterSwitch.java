@@ -10,10 +10,8 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
-import sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
-import sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
@@ -144,14 +142,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MathInterpreterPackage.EXP_LEFT:
-      {
-        ExpLeft expLeft = (ExpLeft)theEObject;
-        T result = caseExpLeft(expLeft);
-        if (result == null) result = caseExp(expLeft);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case MathInterpreterPackage.PLUS:
       {
         Plus plus = (Plus)theEObject;
@@ -165,14 +155,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
         Minus minus = (Minus)theEObject;
         T result = caseMinus(minus);
         if (result == null) result = caseExpOp(minus);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case MathInterpreterPackage.FACTOR_LEFT:
-      {
-        FactorLeft factorLeft = (FactorLeft)theEObject;
-        T result = caseFactorLeft(factorLeft);
-        if (result == null) result = caseFactor(factorLeft);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -325,22 +307,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Exp Left</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Exp Left</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseExpLeft(ExpLeft object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Plus</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -368,22 +334,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMinus(Minus object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Factor Left</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Factor Left</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFactorLeft(FactorLeft object)
   {
     return null;
   }

@@ -12,11 +12,13 @@
     <genClasses ecoreClass="MathInterpreter.ecore#//Exp">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Exp/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Exp/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Exp/right"/>
     </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//ExpOp"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Factor">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Factor/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Factor/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Factor/right"/>
     </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//FactorOp"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Primary"/>
@@ -26,14 +28,8 @@
     <genClasses ecoreClass="MathInterpreter.ecore#//Number">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MathInterpreter.ecore#//Number/value"/>
     </genClasses>
-    <genClasses ecoreClass="MathInterpreter.ecore#//ExpLeft">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//ExpLeft/right"/>
-    </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//Plus"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Minus"/>
-    <genClasses ecoreClass="MathInterpreter.ecore#//FactorLeft">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//FactorLeft/right"/>
-    </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//Mult"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Div"/>
   </genPackages>

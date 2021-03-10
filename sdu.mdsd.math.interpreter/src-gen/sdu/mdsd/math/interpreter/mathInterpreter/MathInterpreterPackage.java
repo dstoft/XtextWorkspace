@@ -114,13 +114,22 @@ public interface MathInterpreterPackage extends EPackage
   int EXP__OPERATOR = 1;
 
   /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXP__RIGHT = 2;
+
+  /**
    * The number of structural features of the '<em>Exp</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXP_FEATURE_COUNT = 2;
+  int EXP_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpOpImpl <em>Exp Op</em>}' class.
@@ -170,13 +179,22 @@ public interface MathInterpreterPackage extends EPackage
   int FACTOR__OPERATOR = 1;
 
   /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FACTOR__RIGHT = 2;
+
+  /**
    * The number of structural features of the '<em>Factor</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FACTOR_FEATURE_COUNT = 2;
+  int FACTOR_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorOpImpl <em>Factor Op</em>}' class.
@@ -273,52 +291,6 @@ public interface MathInterpreterPackage extends EPackage
   int NUMBER_FEATURE_COUNT = PRIMARY_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpLeftImpl <em>Exp Left</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpLeftImpl
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getExpLeft()
-   * @generated
-   */
-  int EXP_LEFT = 8;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXP_LEFT__LEFT = EXP__LEFT;
-
-  /**
-   * The feature id for the '<em><b>Operator</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXP_LEFT__OPERATOR = EXP__OPERATOR;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXP_LEFT__RIGHT = EXP_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Exp Left</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXP_LEFT_FEATURE_COUNT = EXP_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.PlusImpl <em>Plus</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -326,7 +298,7 @@ public interface MathInterpreterPackage extends EPackage
    * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getPlus()
    * @generated
    */
-  int PLUS = 9;
+  int PLUS = 8;
 
   /**
    * The number of structural features of the '<em>Plus</em>' class.
@@ -345,7 +317,7 @@ public interface MathInterpreterPackage extends EPackage
    * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getMinus()
    * @generated
    */
-  int MINUS = 10;
+  int MINUS = 9;
 
   /**
    * The number of structural features of the '<em>Minus</em>' class.
@@ -357,52 +329,6 @@ public interface MathInterpreterPackage extends EPackage
   int MINUS_FEATURE_COUNT = EXP_OP_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorLeftImpl <em>Factor Left</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorLeftImpl
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getFactorLeft()
-   * @generated
-   */
-  int FACTOR_LEFT = 11;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FACTOR_LEFT__LEFT = FACTOR__LEFT;
-
-  /**
-   * The feature id for the '<em><b>Operator</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FACTOR_LEFT__OPERATOR = FACTOR__OPERATOR;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FACTOR_LEFT__RIGHT = FACTOR_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Factor Left</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FACTOR_LEFT_FEATURE_COUNT = FACTOR_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.MultImpl <em>Mult</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -410,7 +336,7 @@ public interface MathInterpreterPackage extends EPackage
    * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getMult()
    * @generated
    */
-  int MULT = 12;
+  int MULT = 10;
 
   /**
    * The number of structural features of the '<em>Mult</em>' class.
@@ -429,7 +355,7 @@ public interface MathInterpreterPackage extends EPackage
    * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getDiv()
    * @generated
    */
-  int DIV = 13;
+  int DIV = 11;
 
   /**
    * The number of structural features of the '<em>Div</em>' class.
@@ -495,6 +421,17 @@ public interface MathInterpreterPackage extends EPackage
   EReference getExp_Operator();
 
   /**
+   * Returns the meta object for the containment reference '{@link sdu.mdsd.math.interpreter.mathInterpreter.Exp#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see sdu.mdsd.math.interpreter.mathInterpreter.Exp#getRight()
+   * @see #getExp()
+   * @generated
+   */
+  EReference getExp_Right();
+
+  /**
    * Returns the meta object for class '{@link sdu.mdsd.math.interpreter.mathInterpreter.ExpOp <em>Exp Op</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -535,6 +472,17 @@ public interface MathInterpreterPackage extends EPackage
    * @generated
    */
   EReference getFactor_Operator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link sdu.mdsd.math.interpreter.mathInterpreter.Factor#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see sdu.mdsd.math.interpreter.mathInterpreter.Factor#getRight()
+   * @see #getFactor()
+   * @generated
+   */
+  EReference getFactor_Right();
 
   /**
    * Returns the meta object for class '{@link sdu.mdsd.math.interpreter.mathInterpreter.FactorOp <em>Factor Op</em>}'.
@@ -599,27 +547,6 @@ public interface MathInterpreterPackage extends EPackage
   EAttribute getNumber_Value();
 
   /**
-   * Returns the meta object for class '{@link sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft <em>Exp Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Exp Left</em>'.
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft
-   * @generated
-   */
-  EClass getExpLeft();
-
-  /**
-   * Returns the meta object for the containment reference '{@link sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft#getRight()
-   * @see #getExpLeft()
-   * @generated
-   */
-  EReference getExpLeft_Right();
-
-  /**
    * Returns the meta object for class '{@link sdu.mdsd.math.interpreter.mathInterpreter.Plus <em>Plus</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -638,27 +565,6 @@ public interface MathInterpreterPackage extends EPackage
    * @generated
    */
   EClass getMinus();
-
-  /**
-   * Returns the meta object for class '{@link sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft <em>Factor Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Factor Left</em>'.
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft
-   * @generated
-   */
-  EClass getFactorLeft();
-
-  /**
-   * Returns the meta object for the containment reference '{@link sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft#getRight()
-   * @see #getFactorLeft()
-   * @generated
-   */
-  EReference getFactorLeft_Right();
 
   /**
    * Returns the meta object for class '{@link sdu.mdsd.math.interpreter.mathInterpreter.Mult <em>Mult</em>}'.
@@ -748,6 +654,14 @@ public interface MathInterpreterPackage extends EPackage
     EReference EXP__OPERATOR = eINSTANCE.getExp_Operator();
 
     /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXP__RIGHT = eINSTANCE.getExp_Right();
+
+    /**
      * The meta object literal for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpOpImpl <em>Exp Op</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -782,6 +696,14 @@ public interface MathInterpreterPackage extends EPackage
      * @generated
      */
     EReference FACTOR__OPERATOR = eINSTANCE.getFactor_Operator();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FACTOR__RIGHT = eINSTANCE.getFactor_Right();
 
     /**
      * The meta object literal for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorOpImpl <em>Factor Op</em>}' class.
@@ -840,24 +762,6 @@ public interface MathInterpreterPackage extends EPackage
     EAttribute NUMBER__VALUE = eINSTANCE.getNumber_Value();
 
     /**
-     * The meta object literal for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpLeftImpl <em>Exp Left</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpLeftImpl
-     * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getExpLeft()
-     * @generated
-     */
-    EClass EXP_LEFT = eINSTANCE.getExpLeft();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXP_LEFT__RIGHT = eINSTANCE.getExpLeft_Right();
-
-    /**
      * The meta object literal for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.PlusImpl <em>Plus</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -876,24 +780,6 @@ public interface MathInterpreterPackage extends EPackage
      * @generated
      */
     EClass MINUS = eINSTANCE.getMinus();
-
-    /**
-     * The meta object literal for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorLeftImpl <em>Factor Left</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorLeftImpl
-     * @see sdu.mdsd.math.interpreter.mathInterpreter.impl.MathInterpreterPackageImpl#getFactorLeft()
-     * @generated
-     */
-    EClass FACTOR_LEFT = eINSTANCE.getFactorLeft();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FACTOR_LEFT__RIGHT = eINSTANCE.getFactorLeft_Right();
 
     /**
      * The meta object literal for the '{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.MultImpl <em>Mult</em>}' class.

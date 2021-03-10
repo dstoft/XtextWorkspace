@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.Exp#getLeft <em>Left</em>}</li>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.Exp#getOperator <em>Operator</em>}</li>
+ *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.Exp#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @see sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage#getExp()
@@ -67,5 +68,27 @@ public interface Exp extends EObject
    * @generated
    */
   void setOperator(ExpOp value);
+
+  /**
+   * Returns the value of the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Right</em>' containment reference.
+   * @see #setRight(Factor)
+   * @see sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage#getExp_Right()
+   * @model containment="true"
+   * @generated
+   */
+  Factor getRight();
+
+  /**
+   * Sets the value of the '{@link sdu.mdsd.math.interpreter.mathInterpreter.Exp#getRight <em>Right</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Right</em>' containment reference.
+   * @see #getRight()
+   * @generated
+   */
+  void setRight(Factor value);
 
 } // Exp

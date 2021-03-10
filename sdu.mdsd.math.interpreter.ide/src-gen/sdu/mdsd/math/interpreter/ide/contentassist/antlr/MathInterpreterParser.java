@@ -37,22 +37,20 @@ public class MathInterpreterParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getMathExpAccess().getGroup(), "rule__MathExp__Group__0");
 			builder.put(grammarAccess.getExpAccess().getGroup(), "rule__Exp__Group__0");
 			builder.put(grammarAccess.getExpAccess().getGroup_1(), "rule__Exp__Group_1__0");
-			builder.put(grammarAccess.getExpAccess().getGroup_1_0(), "rule__Exp__Group_1_0__0");
 			builder.put(grammarAccess.getExpOpAccess().getGroup_0(), "rule__ExpOp__Group_0__0");
 			builder.put(grammarAccess.getExpOpAccess().getGroup_1(), "rule__ExpOp__Group_1__0");
 			builder.put(grammarAccess.getFactorAccess().getGroup(), "rule__Factor__Group__0");
 			builder.put(grammarAccess.getFactorAccess().getGroup_1(), "rule__Factor__Group_1__0");
-			builder.put(grammarAccess.getFactorAccess().getGroup_1_0(), "rule__Factor__Group_1_0__0");
 			builder.put(grammarAccess.getFactorOpAccess().getGroup_0(), "rule__FactorOp__Group_0__0");
 			builder.put(grammarAccess.getFactorOpAccess().getGroup_1(), "rule__FactorOp__Group_1__0");
 			builder.put(grammarAccess.getParenthesisAccess().getGroup(), "rule__Parenthesis__Group__0");
 			builder.put(grammarAccess.getMathExpAccess().getExpAssignment_2(), "rule__MathExp__ExpAssignment_2");
 			builder.put(grammarAccess.getExpAccess().getLeftAssignment_0(), "rule__Exp__LeftAssignment_0");
-			builder.put(grammarAccess.getExpAccess().getOperatorAssignment_1_0_0(), "rule__Exp__OperatorAssignment_1_0_0");
-			builder.put(grammarAccess.getExpAccess().getRightAssignment_1_1(), "rule__Exp__RightAssignment_1_1");
+			builder.put(grammarAccess.getExpAccess().getOperatorAssignment_1_1(), "rule__Exp__OperatorAssignment_1_1");
+			builder.put(grammarAccess.getExpAccess().getRightAssignment_1_2(), "rule__Exp__RightAssignment_1_2");
 			builder.put(grammarAccess.getFactorAccess().getLeftAssignment_0(), "rule__Factor__LeftAssignment_0");
-			builder.put(grammarAccess.getFactorAccess().getOperatorAssignment_1_0_0(), "rule__Factor__OperatorAssignment_1_0_0");
-			builder.put(grammarAccess.getFactorAccess().getRightAssignment_1_1(), "rule__Factor__RightAssignment_1_1");
+			builder.put(grammarAccess.getFactorAccess().getOperatorAssignment_1_1(), "rule__Factor__OperatorAssignment_1_1");
+			builder.put(grammarAccess.getFactorAccess().getRightAssignment_1_2(), "rule__Factor__RightAssignment_1_2");
 			builder.put(grammarAccess.getParenthesisAccess().getExpAssignment_1(), "rule__Parenthesis__ExpAssignment_1");
 			builder.put(grammarAccess.getNumberAccess().getValueAssignment(), "rule__Number__ValueAssignment");
 		}

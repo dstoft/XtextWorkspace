@@ -465,9 +465,9 @@ rule__Exp__Group_1__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getExpAccess().getGroup_1_0()); }
-	(rule__Exp__Group_1_0__0)
-	{ after(grammarAccess.getExpAccess().getGroup_1_0()); }
+	{ before(grammarAccess.getExpAccess().getExpLeftAction_1_0()); }
+	()
+	{ after(grammarAccess.getExpAccess().getExpLeftAction_1_0()); }
 )
 ;
 finally {
@@ -480,6 +480,7 @@ rule__Exp__Group_1__1
 	}
 :
 	rule__Exp__Group_1__1__Impl
+	rule__Exp__Group_1__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -491,63 +492,35 @@ rule__Exp__Group_1__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getExpAccess().getRightAssignment_1_1()); }
-	(rule__Exp__RightAssignment_1_1)
-	{ after(grammarAccess.getExpAccess().getRightAssignment_1_1()); }
+	{ before(grammarAccess.getExpAccess().getOperatorAssignment_1_1()); }
+	(rule__Exp__OperatorAssignment_1_1)
+	{ after(grammarAccess.getExpAccess().getOperatorAssignment_1_1()); }
 )
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-
-rule__Exp__Group_1_0__0
+rule__Exp__Group_1__2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
-	rule__Exp__Group_1_0__0__Impl
-	rule__Exp__Group_1_0__1
+	rule__Exp__Group_1__2__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Exp__Group_1_0__0__Impl
+rule__Exp__Group_1__2__Impl
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 (
-	{ before(grammarAccess.getExpAccess().getOperatorAssignment_1_0_0()); }
-	(rule__Exp__OperatorAssignment_1_0_0)
-	{ after(grammarAccess.getExpAccess().getOperatorAssignment_1_0_0()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Exp__Group_1_0__1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__Exp__Group_1_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Exp__Group_1_0__1__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getExpAccess().getExpLeftLeftAction_1_0_1()); }
-	()
-	{ after(grammarAccess.getExpAccess().getExpLeftLeftAction_1_0_1()); }
+	{ before(grammarAccess.getExpAccess().getRightAssignment_1_2()); }
+	(rule__Exp__RightAssignment_1_2)
+	{ after(grammarAccess.getExpAccess().getRightAssignment_1_2()); }
 )
 ;
 finally {
@@ -735,9 +708,9 @@ rule__Factor__Group_1__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getFactorAccess().getGroup_1_0()); }
-	(rule__Factor__Group_1_0__0)
-	{ after(grammarAccess.getFactorAccess().getGroup_1_0()); }
+	{ before(grammarAccess.getFactorAccess().getFactorLeftAction_1_0()); }
+	()
+	{ after(grammarAccess.getFactorAccess().getFactorLeftAction_1_0()); }
 )
 ;
 finally {
@@ -750,6 +723,7 @@ rule__Factor__Group_1__1
 	}
 :
 	rule__Factor__Group_1__1__Impl
+	rule__Factor__Group_1__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -761,63 +735,35 @@ rule__Factor__Group_1__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getFactorAccess().getRightAssignment_1_1()); }
-	(rule__Factor__RightAssignment_1_1)
-	{ after(grammarAccess.getFactorAccess().getRightAssignment_1_1()); }
+	{ before(grammarAccess.getFactorAccess().getOperatorAssignment_1_1()); }
+	(rule__Factor__OperatorAssignment_1_1)
+	{ after(grammarAccess.getFactorAccess().getOperatorAssignment_1_1()); }
 )
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-
-rule__Factor__Group_1_0__0
+rule__Factor__Group_1__2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
-	rule__Factor__Group_1_0__0__Impl
-	rule__Factor__Group_1_0__1
+	rule__Factor__Group_1__2__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Factor__Group_1_0__0__Impl
+rule__Factor__Group_1__2__Impl
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 (
-	{ before(grammarAccess.getFactorAccess().getOperatorAssignment_1_0_0()); }
-	(rule__Factor__OperatorAssignment_1_0_0)
-	{ after(grammarAccess.getFactorAccess().getOperatorAssignment_1_0_0()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Factor__Group_1_0__1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__Factor__Group_1_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Factor__Group_1_0__1__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getFactorAccess().getFactorLeftLeftAction_1_0_1()); }
-	()
-	{ after(grammarAccess.getFactorAccess().getFactorLeftLeftAction_1_0_1()); }
+	{ before(grammarAccess.getFactorAccess().getRightAssignment_1_2()); }
+	(rule__Factor__RightAssignment_1_2)
+	{ after(grammarAccess.getFactorAccess().getRightAssignment_1_2()); }
 )
 ;
 finally {
@@ -1044,30 +990,30 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Exp__OperatorAssignment_1_0_0
+rule__Exp__OperatorAssignment_1_1
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_0_0_0()); }
+		{ before(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_1_0()); }
 		ruleExpOp
-		{ after(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_0_0_0()); }
+		{ after(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_1_0()); }
 	)
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Exp__RightAssignment_1_1
+rule__Exp__RightAssignment_1_2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_1_0()); }
+		{ before(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_2_0()); }
 		ruleFactor
-		{ after(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_1_0()); }
+		{ after(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_2_0()); }
 	)
 ;
 finally {
@@ -1089,30 +1035,30 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Factor__OperatorAssignment_1_0_0
+rule__Factor__OperatorAssignment_1_1
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_0_0_0()); }
+		{ before(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_1_0()); }
 		ruleFactorOp
-		{ after(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_0_0_0()); }
+		{ after(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_1_0()); }
 	)
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Factor__RightAssignment_1_1
+rule__Factor__RightAssignment_1_2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_1_0()); }
+		{ before(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_2_0()); }
 		rulePrimary
-		{ after(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_1_0()); }
+		{ after(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_2_0()); }
 	)
 ;
 finally {

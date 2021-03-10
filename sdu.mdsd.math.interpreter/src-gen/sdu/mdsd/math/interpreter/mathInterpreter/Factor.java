@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.Factor#getLeft <em>Left</em>}</li>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.Factor#getOperator <em>Operator</em>}</li>
+ *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.Factor#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @see sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage#getFactor()
@@ -67,5 +68,27 @@ public interface Factor extends EObject
    * @generated
    */
   void setOperator(FactorOp value);
+
+  /**
+   * Returns the value of the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Right</em>' containment reference.
+   * @see #setRight(Primary)
+   * @see sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage#getFactor_Right()
+   * @model containment="true"
+   * @generated
+   */
+  Primary getRight();
+
+  /**
+   * Sets the value of the '{@link sdu.mdsd.math.interpreter.mathInterpreter.Factor#getRight <em>Right</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Right</em>' containment reference.
+   * @see #getRight()
+   * @generated
+   */
+  void setRight(Primary value);
 
 } // Factor

@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
+import sdu.mdsd.math.interpreter.mathInterpreter.Primary;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +28,7 @@ import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
  * <ul>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorImpl#getOperator <em>Operator</em>}</li>
+ *   <li>{@link sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorImpl#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,6 +54,16 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
    * @ordered
    */
   protected FactorOp operator;
+
+  /**
+   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRight()
+   * @generated
+   * @ordered
+   */
+  protected Primary right;
 
   /**
    * <!-- begin-user-doc -->
@@ -180,6 +192,56 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
    * @generated
    */
   @Override
+  public Primary getRight()
+  {
+    return right;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRight(Primary newRight, NotificationChain msgs)
+  {
+    Primary oldRight = right;
+    right = newRight;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MathInterpreterPackage.FACTOR__RIGHT, oldRight, newRight);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setRight(Primary newRight)
+  {
+    if (newRight != right)
+    {
+      NotificationChain msgs = null;
+      if (right != null)
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MathInterpreterPackage.FACTOR__RIGHT, null, msgs);
+      if (newRight != null)
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MathInterpreterPackage.FACTOR__RIGHT, null, msgs);
+      msgs = basicSetRight(newRight, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MathInterpreterPackage.FACTOR__RIGHT, newRight, newRight));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -188,6 +250,8 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
         return basicSetLeft(null, msgs);
       case MathInterpreterPackage.FACTOR__OPERATOR:
         return basicSetOperator(null, msgs);
+      case MathInterpreterPackage.FACTOR__RIGHT:
+        return basicSetRight(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -206,6 +270,8 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
         return getLeft();
       case MathInterpreterPackage.FACTOR__OPERATOR:
         return getOperator();
+      case MathInterpreterPackage.FACTOR__RIGHT:
+        return getRight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -225,6 +291,9 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
         return;
       case MathInterpreterPackage.FACTOR__OPERATOR:
         setOperator((FactorOp)newValue);
+        return;
+      case MathInterpreterPackage.FACTOR__RIGHT:
+        setRight((Primary)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -246,6 +315,9 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
       case MathInterpreterPackage.FACTOR__OPERATOR:
         setOperator((FactorOp)null);
         return;
+      case MathInterpreterPackage.FACTOR__RIGHT:
+        setRight((Primary)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -264,6 +336,8 @@ public class FactorImpl extends MinimalEObjectImpl.Container implements Factor
         return left != null;
       case MathInterpreterPackage.FACTOR__OPERATOR:
         return operator != null;
+      case MathInterpreterPackage.FACTOR__RIGHT:
+        return right != null;
     }
     return super.eIsSet(featureID);
   }

@@ -10,12 +10,16 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operator" eType="#//ExpOp"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Factor"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpOp"/>
   <eClassifiers xsi:type="ecore:EClass" name="Factor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operator" eType="#//FactorOp"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Primary"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FactorOp"/>
@@ -26,16 +30,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Number" eSuperTypes="#//Primary">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExpLeft" eSuperTypes="#//Exp">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Factor"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Plus" eSuperTypes="#//ExpOp"/>
   <eClassifiers xsi:type="ecore:EClass" name="Minus" eSuperTypes="#//ExpOp"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FactorLeft" eSuperTypes="#//Factor">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Primary"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mult" eSuperTypes="#//FactorOp"/>
   <eClassifiers xsi:type="ecore:EClass" name="Div" eSuperTypes="#//FactorOp"/>
 </ecore:EPackage>

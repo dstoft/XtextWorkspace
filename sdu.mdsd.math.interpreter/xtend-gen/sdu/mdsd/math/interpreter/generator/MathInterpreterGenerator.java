@@ -6,18 +6,26 @@ package sdu.mdsd.math.interpreter.generator;
 import com.google.common.collect.Iterators;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Minus;
+import sdu.mdsd.math.interpreter.mathInterpreter.Mult;
+import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis;
 import sdu.mdsd.math.interpreter.mathInterpreter.Plus;
 import sdu.mdsd.math.interpreter.mathInterpreter.Primary;
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.NumberImpl;
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.ParenthesisImpl;
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.PrimaryImpl;
 
 /**
  * Generates code from your model files on save.
@@ -41,11 +49,159 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   }
   
   public int computeExp(final Exp exp) {
-    return 87;
+    int _xblockexpression = (int) 0;
+    {
+      System.out.println("Computing expression!");
+      int left = 0;
+      EObject _left = exp.getLeft();
+      boolean _tripleEquals = (_left == null);
+      if (_tripleEquals) {
+        System.out.println("left is null!");
+      }
+      ExpOp _operator = exp.getOperator();
+      boolean _tripleEquals_1 = (_operator == null);
+      if (_tripleEquals_1) {
+        System.out.println("op is null!");
+      }
+      Factor _right = exp.getRight();
+      boolean _tripleEquals_2 = (_right == null);
+      if (_tripleEquals_2) {
+        System.out.println("right is null!");
+      }
+      EObject _left_1 = exp.getLeft();
+      boolean _matched = false;
+      if (_left_1 instanceof Exp) {
+        _matched=true;
+        EObject _left_2 = exp.getLeft();
+        left = this.computeExp(((Exp) _left_2));
+      }
+      if (!_matched) {
+        if (_left_1 instanceof Factor) {
+          _matched=true;
+          EObject _left_2 = exp.getLeft();
+          return this.computeFactor(((Factor) _left_2));
+        }
+      }
+      if (!_matched) {
+        System.out.println("Left is default");
+      }
+      int _switchResult_1 = (int) 0;
+      ExpOp _operator_1 = exp.getOperator();
+      boolean _matched_1 = false;
+      if (_operator_1 instanceof Plus) {
+        _matched_1=true;
+        int _computeFactor = this.computeFactor(exp.getRight());
+        _switchResult_1 = (left + _computeFactor);
+      }
+      if (!_matched_1) {
+        if (_operator_1 instanceof Minus) {
+          _matched_1=true;
+          int _computeFactor = this.computeFactor(exp.getRight());
+          _switchResult_1 = (left - _computeFactor);
+        }
+      }
+      if (!_matched_1) {
+        _switchResult_1 = left;
+      }
+      _xblockexpression = _switchResult_1;
+    }
+    return _xblockexpression;
+  }
+  
+  public int computeFactor(final Factor factor) {
+    int _xblockexpression = (int) 0;
+    {
+      System.out.println("Computing factor!");
+      int left = 0;
+      EObject _left = factor.getLeft();
+      boolean _matched = false;
+      if (_left instanceof Factor) {
+        _matched=true;
+        EObject _left_1 = factor.getLeft();
+        left = this.computeFactor(((Factor) _left_1));
+      }
+      if (!_matched) {
+        if (_left instanceof Primary) {
+          _matched=true;
+          EObject _left_1 = factor.getLeft();
+          left = this.computePrim(((Primary) _left_1));
+        }
+      }
+      int _switchResult_1 = (int) 0;
+      FactorOp _operator = factor.getOperator();
+      boolean _matched_1 = false;
+      if (_operator instanceof Mult) {
+        _matched_1=true;
+        int _computePrim = this.computePrim(factor.getRight());
+        _switchResult_1 = (left * _computePrim);
+      }
+      if (!_matched_1) {
+        if (_operator instanceof Div) {
+          _matched_1=true;
+          int _computePrim = this.computePrim(factor.getRight());
+          _switchResult_1 = (left / _computePrim);
+        }
+      }
+      if (!_matched_1) {
+        _switchResult_1 = left;
+      }
+      _xblockexpression = _switchResult_1;
+    }
+    return _xblockexpression;
   }
   
   public int computePrim(final Primary primary) {
-    return 87;
+    int _xblockexpression = (int) 0;
+    {
+      System.out.println("Computing primary!");
+      int _switchResult = (int) 0;
+      boolean _matched = false;
+      if (primary instanceof Number) {
+        _matched=true;
+        return ((Number) primary).intValue();
+      }
+      if (!_matched) {
+        if (primary instanceof Parenthesis) {
+          _matched=true;
+          return this.computeExp(((Parenthesis) primary).getExp());
+        }
+      }
+      if (!_matched) {
+        if (primary instanceof PrimaryImpl) {
+          _matched=true;
+          return this.computePrim(((PrimaryImpl) primary));
+        }
+      }
+      if (!_matched) {
+        _switchResult = (-1000);
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
+  }
+  
+  public int computePrim(final PrimaryImpl primary) {
+    int _xblockexpression = (int) 0;
+    {
+      System.out.println("Computing primaryImpl!");
+      int _switchResult = (int) 0;
+      boolean _matched = false;
+      if (primary instanceof NumberImpl) {
+        _matched=true;
+        return ((NumberImpl) primary).getValue();
+      }
+      if (!_matched) {
+        if (primary instanceof ParenthesisImpl) {
+          _matched=true;
+          return this.computeExp(((ParenthesisImpl) primary).getExp());
+        }
+      }
+      if (!_matched) {
+        _switchResult = (-100);
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
   }
   
   public CharSequence display(final MathExp math) {
@@ -75,13 +231,25 @@ public class MathInterpreterGenerator extends AbstractGenerator {
     return "-";
   }
   
+  protected String _displayOp(final Mult op) {
+    return "*";
+  }
+  
+  protected String _displayOp(final Div op) {
+    return "/";
+  }
+  
   public CharSequence displayFactor(final Primary primary) {
     return "?";
   }
   
-  public String displayOp(final ExpOp op) {
-    if (op instanceof Minus) {
+  public String displayOp(final EObject op) {
+    if (op instanceof Div) {
+      return _displayOp((Div)op);
+    } else if (op instanceof Minus) {
       return _displayOp((Minus)op);
+    } else if (op instanceof Mult) {
+      return _displayOp((Mult)op);
     } else if (op instanceof Plus) {
       return _displayOp((Plus)op);
     } else {

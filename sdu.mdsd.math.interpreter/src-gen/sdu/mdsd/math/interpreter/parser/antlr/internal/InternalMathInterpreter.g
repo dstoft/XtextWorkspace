@@ -143,37 +143,35 @@ ruleExp returns [EObject current=null]
 		)
 		(
 			(
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_0_0_0());
-						}
-						lv_operator_1_0=ruleExpOp
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getExpRule());
-							}
-							set(
-								$current,
-								"operator",
-								lv_operator_1_0,
-								"sdu.mdsd.math.interpreter.MathInterpreter.ExpOp");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getExpAccess().getExpLeftAction_1_0(),
+						$current);
+				}
+			)
+			(
 				(
 					{
-						$current = forceCreateModelElementAndSet(
-							grammarAccess.getExpAccess().getExpLeftLeftAction_1_0_1(),
-							$current);
+						newCompositeNode(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_1_0());
+					}
+					lv_operator_2_0=ruleExpOp
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getExpRule());
+						}
+						set(
+							$current,
+							"operator",
+							lv_operator_2_0,
+							"sdu.mdsd.math.interpreter.MathInterpreter.ExpOp");
+						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_2_0());
 					}
 					lv_right_3_0=ruleFactor
 					{
@@ -276,37 +274,35 @@ ruleFactor returns [EObject current=null]
 		)
 		(
 			(
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_0_0_0());
-						}
-						lv_operator_1_0=ruleFactorOp
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getFactorRule());
-							}
-							set(
-								$current,
-								"operator",
-								lv_operator_1_0,
-								"sdu.mdsd.math.interpreter.MathInterpreter.FactorOp");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getFactorAccess().getFactorLeftAction_1_0(),
+						$current);
+				}
+			)
+			(
 				(
 					{
-						$current = forceCreateModelElementAndSet(
-							grammarAccess.getFactorAccess().getFactorLeftLeftAction_1_0_1(),
-							$current);
+						newCompositeNode(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_1_0());
+					}
+					lv_operator_2_0=ruleFactorOp
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFactorRule());
+						}
+						set(
+							$current,
+							"operator",
+							lv_operator_2_0,
+							"sdu.mdsd.math.interpreter.MathInterpreter.FactorOp");
+						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_2_0());
 					}
 					lv_right_3_0=rulePrimary
 					{

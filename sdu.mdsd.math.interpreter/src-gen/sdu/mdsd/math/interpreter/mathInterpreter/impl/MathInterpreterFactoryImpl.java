@@ -13,10 +13,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
-import sdu.mdsd.math.interpreter.mathInterpreter.ExpLeft;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
-import sdu.mdsd.math.interpreter.mathInterpreter.FactorLeft;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterFactory;
@@ -87,10 +85,8 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
       case MathInterpreterPackage.PRIMARY: return createPrimary();
       case MathInterpreterPackage.PARENTHESIS: return createParenthesis();
       case MathInterpreterPackage.NUMBER: return createNumber();
-      case MathInterpreterPackage.EXP_LEFT: return createExpLeft();
       case MathInterpreterPackage.PLUS: return createPlus();
       case MathInterpreterPackage.MINUS: return createMinus();
-      case MathInterpreterPackage.FACTOR_LEFT: return createFactorLeft();
       case MathInterpreterPackage.MULT: return createMult();
       case MathInterpreterPackage.DIV: return createDiv();
       default:
@@ -200,18 +196,6 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
    * @generated
    */
   @Override
-  public ExpLeft createExpLeft()
-  {
-    ExpLeftImpl expLeft = new ExpLeftImpl();
-    return expLeft;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public Plus createPlus()
   {
     PlusImpl plus = new PlusImpl();
@@ -228,18 +212,6 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
   {
     MinusImpl minus = new MinusImpl();
     return minus;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public FactorLeft createFactorLeft()
-  {
-    FactorLeftImpl factorLeft = new FactorLeftImpl();
-    return factorLeft;
   }
 
   /**
