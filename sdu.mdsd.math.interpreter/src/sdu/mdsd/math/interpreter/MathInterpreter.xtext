@@ -1,0 +1,35 @@
+grammar sdu.mdsd.math.interpreter.MathInterpreter with org.eclipse.xtext.common.Terminals
+
+generate mathInterpreter "http://www.mdsd.sdu/math/interpreter/MathInterpreter"
+
+MathExp:
+	'result' 'is' exp=Exp
+;
+
+Exp:
+	left=Factor ((operator=ExpOp {Exp.left=current}) right=Factor)*
+;
+
+ExpOp:
+	{Plus} '+' | {Minus} '-'	
+;
+
+Factor:
+	left=Primary ((operator=FactorOp {Factor.left=current}) right=Primary)*
+;
+
+FactorOp:
+	{Mult} '*' | {Div} '/'
+;
+
+Primary:
+	Number | Parenthesis
+;
+
+Parenthesis:
+	'(' exp=Exp ')'
+;
+
+Number:
+	value=INT
+;
