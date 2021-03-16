@@ -44,6 +44,10 @@ public class MathInterpreterGenerator extends AbstractGenerator {
     JOptionPane.showMessageDialog(null, ("result = " + Integer.valueOf(result)), "Math Language", JOptionPane.INFORMATION_MESSAGE);
   }
   
+  public static int staticCompute(final MathExp math) {
+    return new MathInterpreterGenerator().compute(math);
+  }
+  
   public int compute(final MathExp math) {
     return this.computeExp(math.getExp());
   }
@@ -51,7 +55,6 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   public int computeExp(final Exp exp) {
     int _xblockexpression = (int) 0;
     {
-      System.out.println("Computing expression!");
       int left = 0;
       EObject _left = exp.getLeft();
       boolean _tripleEquals = (_left == null);
@@ -111,7 +114,6 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   public int computeFactor(final Factor factor) {
     int _xblockexpression = (int) 0;
     {
-      System.out.println("Computing factor!");
       int left = 0;
       EObject _left = factor.getLeft();
       boolean _matched = false;
@@ -151,57 +153,47 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   }
   
   public int computePrim(final Primary primary) {
-    int _xblockexpression = (int) 0;
-    {
-      System.out.println("Computing primary!");
-      int _switchResult = (int) 0;
-      boolean _matched = false;
-      if (primary instanceof Number) {
-        _matched=true;
-        return ((Number) primary).intValue();
-      }
-      if (!_matched) {
-        if (primary instanceof Parenthesis) {
-          _matched=true;
-          return this.computeExp(((Parenthesis) primary).getExp());
-        }
-      }
-      if (!_matched) {
-        if (primary instanceof PrimaryImpl) {
-          _matched=true;
-          return this.computePrim(((PrimaryImpl) primary));
-        }
-      }
-      if (!_matched) {
-        _switchResult = (-1000);
-      }
-      _xblockexpression = _switchResult;
+    int _switchResult = (int) 0;
+    boolean _matched = false;
+    if (primary instanceof Number) {
+      _matched=true;
+      return ((Number) primary).intValue();
     }
-    return _xblockexpression;
+    if (!_matched) {
+      if (primary instanceof Parenthesis) {
+        _matched=true;
+        return this.computeExp(((Parenthesis) primary).getExp());
+      }
+    }
+    if (!_matched) {
+      if (primary instanceof PrimaryImpl) {
+        _matched=true;
+        return this.computePrim(((PrimaryImpl) primary));
+      }
+    }
+    if (!_matched) {
+      _switchResult = (-1000);
+    }
+    return _switchResult;
   }
   
   public int computePrim(final PrimaryImpl primary) {
-    int _xblockexpression = (int) 0;
-    {
-      System.out.println("Computing primaryImpl!");
-      int _switchResult = (int) 0;
-      boolean _matched = false;
-      if (primary instanceof NumberImpl) {
-        _matched=true;
-        return ((NumberImpl) primary).getValue();
-      }
-      if (!_matched) {
-        if (primary instanceof ParenthesisImpl) {
-          _matched=true;
-          return this.computeExp(((ParenthesisImpl) primary).getExp());
-        }
-      }
-      if (!_matched) {
-        _switchResult = (-100);
-      }
-      _xblockexpression = _switchResult;
+    int _switchResult = (int) 0;
+    boolean _matched = false;
+    if (primary instanceof NumberImpl) {
+      _matched=true;
+      return ((NumberImpl) primary).getValue();
     }
-    return _xblockexpression;
+    if (!_matched) {
+      if (primary instanceof ParenthesisImpl) {
+        _matched=true;
+        return this.computeExp(((ParenthesisImpl) primary).getExp());
+      }
+    }
+    if (!_matched) {
+      _switchResult = (-100);
+    }
+    return _switchResult;
   }
   
   public CharSequence display(final MathExp math) {
@@ -214,13 +206,156 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   }
   
   public CharSequence displayExp(final Exp exp) {
-    StringConcatenation _builder = new StringConcatenation();
-    return _builder;
+    CharSequence _switchResult = null;
+    EObject _left = exp.getLeft();
+    boolean _matched = false;
+    if (_left instanceof Exp) {
+      _matched=true;
+      StringConcatenation _builder = new StringConcatenation();
+      EObject _left_1 = exp.getLeft();
+      CharSequence _displayExp = this.displayExp(((Exp) _left_1));
+      _builder.append(_displayExp);
+      _builder.append(" ");
+      ExpOp _operator = exp.getOperator();
+      String _displayOp = null;
+      if (_operator!=null) {
+        _displayOp=this.displayOp(_operator);
+      }
+      _builder.append(_displayOp);
+      _builder.append(" ");
+      Factor _right = exp.getRight();
+      CharSequence _displayFactor = null;
+      if (_right!=null) {
+        _displayFactor=this.displayFactor(_right);
+      }
+      _builder.append(_displayFactor);
+      _switchResult = _builder;
+    }
+    if (!_matched) {
+      if (_left instanceof Factor) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        EObject _left_1 = exp.getLeft();
+        CharSequence _displayFactor = this.displayFactor(((Factor) _left_1));
+        _builder.append(_displayFactor);
+        _switchResult = _builder;
+      }
+    }
+    if (!_matched) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Mega wow");
+      _switchResult = _builder;
+    }
+    return _switchResult;
   }
   
   public CharSequence displayFactor(final Factor fac) {
-    StringConcatenation _builder = new StringConcatenation();
-    return _builder;
+    CharSequence _switchResult = null;
+    EObject _left = fac.getLeft();
+    boolean _matched = false;
+    if (_left instanceof Factor) {
+      _matched=true;
+      StringConcatenation _builder = new StringConcatenation();
+      EObject _left_1 = fac.getLeft();
+      CharSequence _displayFactor = this.displayFactor(((Factor) _left_1));
+      _builder.append(_displayFactor);
+      _builder.append(" ");
+      FactorOp _operator = fac.getOperator();
+      String _displayOp = null;
+      if (_operator!=null) {
+        _displayOp=this.displayOp(_operator);
+      }
+      _builder.append(_displayOp);
+      _builder.append(" ");
+      Primary _right = fac.getRight();
+      CharSequence _displayPrim = null;
+      if (_right!=null) {
+        _displayPrim=this.displayPrim(_right);
+      }
+      _builder.append(_displayPrim);
+      _switchResult = _builder;
+    }
+    if (!_matched) {
+      if (_left instanceof Primary) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        EObject _left_1 = fac.getLeft();
+        CharSequence _displayPrim = this.displayPrim(((Primary) _left_1));
+        _builder.append(_displayPrim);
+        _switchResult = _builder;
+      }
+    }
+    if (!_matched) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Uber wow");
+      _switchResult = _builder;
+    }
+    return _switchResult;
+  }
+  
+  public CharSequence displayPrim(final Primary primary) {
+    CharSequence _switchResult = null;
+    boolean _matched = false;
+    if (primary instanceof Number) {
+      _matched=true;
+      StringConcatenation _builder = new StringConcatenation();
+      int _intValue = ((Number) primary).intValue();
+      _builder.append(_intValue);
+      _switchResult = _builder;
+    }
+    if (!_matched) {
+      if (primary instanceof Parenthesis) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("(");
+        CharSequence _displayExp = this.displayExp(((Parenthesis) primary).getExp());
+        _builder.append(_displayExp);
+        _builder.append(")");
+        _switchResult = _builder;
+      }
+    }
+    if (!_matched) {
+      if (primary instanceof PrimaryImpl) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        CharSequence _displayPrim = this.displayPrim(((PrimaryImpl) primary));
+        _builder.append(_displayPrim);
+        _switchResult = _builder;
+      }
+    }
+    return _switchResult;
+  }
+  
+  public CharSequence displayPrim(final PrimaryImpl primary) {
+    CharSequence _switchResult = null;
+    boolean _matched = false;
+    if (primary instanceof NumberImpl) {
+      _matched=true;
+      StringConcatenation _builder = new StringConcatenation();
+      int _value = ((NumberImpl) primary).getValue();
+      _builder.append(_value);
+      _switchResult = _builder;
+    }
+    if (!_matched) {
+      if (primary instanceof ParenthesisImpl) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("(");
+        CharSequence _displayExp = this.displayExp(((ParenthesisImpl) primary).getExp());
+        _builder.append(_displayExp);
+        _builder.append(")");
+        _switchResult = _builder;
+      }
+    }
+    if (!_matched) {
+      if (primary instanceof PrimaryImpl) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("crazy wow");
+        _switchResult = _builder;
+      }
+    }
+    return _switchResult;
   }
   
   protected String _displayOp(final Plus op) {
@@ -237,10 +372,6 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   
   protected String _displayOp(final Div op) {
     return "/";
-  }
-  
-  public CharSequence displayFactor(final Primary primary) {
-    return "?";
   }
   
   public String displayOp(final EObject op) {
