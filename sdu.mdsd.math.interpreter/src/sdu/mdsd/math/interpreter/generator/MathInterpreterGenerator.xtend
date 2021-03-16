@@ -44,12 +44,15 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	// Note: written according to illegal left-recursive grammar, requires fix
 	//
 	
+	def static int staticCompute(MathExp math) {
+		(new MathInterpreterGenerator).compute(math)
+	}
+	
 	def int compute(MathExp math) { 
 		math.exp.computeExp
 	}
 	
 	def int computeExp(Exp exp) {
-		System.out.println("Computing expression!")
 		var left = 0
 		
 		if(exp.left === null) {
@@ -73,66 +76,15 @@ class MathInterpreterGenerator extends AbstractGenerator {
 			Minus: left - exp.right.computeFactor
 			default: left
 		}
-//		switch exp.right {
-//			Exp: System.out.println("right is exp")
-//			Factor: System.out.println("right is factor")
-//			//default: System.out.println("right is default")
-//		}
-		
-//		if(exp.operator === null) {
-//			System.out.println("Operator is null!")
-//		} else {
-//			System.out.println("Operator is null!")
-//		}
-//		
-//		if(exp.right === null) {
-//			System.out.println("Right is null!")
-//		} else {
-//			System.out.println("Right is not null!")
-//			switch exp.operator {
-//				Plus: left += exp.right.computeFactor
-//				Minus: left -= exp.right.computeFactor
-//				default: System.out.println("operator is not minus or plus!!")
-//			}
-//		}
-//		
-//		System.out.println("Before left: " + left)
-//		
-//		switch exp.left {
-//			Exp: left += (exp.left as Exp).computeExp
-//			Factor: left += (exp.left as Factor).computeFactor
-//		}
-//		
-//		System.out.println("Ending computing expression!" + left)
-		
-		//return left
-		/* if(exp.left instanceof Exp) {
-			left = (exp.left as Exp).computeExp
-		} else if(exp.left instanceof Factor) {
-			left = (exp.left as Factor).computeFactor
-		} */
-		//val left = exp.left.computePrim
-		//switch exp.operator { 
-		//	Plus: left+exp.right.computeExp
-		//	Minus: left-exp.right.computeExp
-			//Mult: left*exp.right.computeExp
-			//Div: left/exp.right.computeExp
-		//	default: left
-		//}
-		//return 87
 	}
 	
 	def int computeFactor(Factor factor) {
-		System.out.println("Computing factor!")
-		
 		var left = 0
 		
 		switch factor.left {
 			Factor: left = (factor.left as Factor).computeFactor
 			Primary: left = (factor.left as Primary).computePrim
 		}
-		
-		//System.out.println("Factor: " + left)
 		
 		switch factor.operator {
 			Mult: left * factor.right.computePrim
@@ -142,14 +94,6 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	}
 	
 	def int computePrim(Primary primary) { 
-		System.out.println("Computing primary!")
-//		if(primary instanceof Number) {
-//			return (primary as Number).intValue
-//		} else if(primary instanceof Parenthesis) {
-//			return (primary as Parenthesis).exp.computeExp
-//		} else {
-//			return -1000
-//		}
 		switch primary {
 			Number: return (primary as Number).intValue
 			Parenthesis: return (primary as Parenthesis).exp.computeExp
@@ -159,8 +103,6 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	}
 	
 	def int computePrim(PrimaryImpl primary) {
-		
-		System.out.println("Computing primaryImpl!")
 		switch primary {
 			NumberImpl: return (primary as NumberImpl).value
 			ParenthesisImpl: return (primary as ParenthesisImpl).exp.computeExp
@@ -174,12 +116,49 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	//
 
 	def CharSequence display(MathExp math) '''Math[«math.exp.displayExp»]'''
-	def CharSequence displayExp(Exp exp) ''''''
-	//def CharSequence displayExp(Exp exp) '''Exp[«exp.left.displayPrim»,«exp.operator?.displayOp»,«exp.right?.displayExp»]'''
-	def CharSequence displayFactor(Factor fac) ''''''
+	//def CharSequence displayExp(Exp exp) ''''''
+	def CharSequence displayExp(Exp exp) {
+		switch (exp.left) {
+			Exp:
+				'''«(exp.left as Exp).displayExp» «exp.operator?.displayOp» «exp.right?.displayFactor»'''
+			Factor:
+				'''«(exp.left as Factor).displayFactor»'''
+			default:
+				'''Mega wow'''
+		}
+	} //'''Exp[«exp.left.displayPrim»,«exp.operator?.displayOp»,«exp.right?.displayExp»]'''
+	def CharSequence displayFactor(Factor fac) {
+		switch (fac.left) {
+			Factor:
+				'''«(fac.left as Factor).displayFactor» «fac.operator?.displayOp» «fac.right?.displayPrim»'''
+			Primary:
+				'''«(fac.left as Primary).displayPrim»'''
+			default:
+				'''Uber wow'''
+		}
+	}
+	def CharSequence displayPrim(Primary primary) {
+		switch (primary) {
+			Number:
+				'''«(primary as Number).intValue»'''
+			Parenthesis:
+				'''(«(primary as Parenthesis).exp.displayExp»)'''
+			PrimaryImpl:
+				'''«(primary as PrimaryImpl).displayPrim»'''
+		}
+	}
+	def CharSequence displayPrim(PrimaryImpl primary)  {
+		switch (primary) {
+			NumberImpl:
+				'''«(primary as NumberImpl).value»'''
+			ParenthesisImpl:
+				'''(«(primary as ParenthesisImpl).exp.displayExp»)'''
+			PrimaryImpl:
+				'''crazy wow'''
+		}
+	}
 	def dispatch String displayOp(Plus op)  { "+" }
 	def dispatch String displayOp(Minus op) { "-" }
 	def dispatch String displayOp(Mult op) { "*" }
 	def dispatch String displayOp(Div op) { "/" }
-	def CharSequence displayFactor(Primary primary) { "?" }
 }
