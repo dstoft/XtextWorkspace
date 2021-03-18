@@ -4,6 +4,7 @@
 package sdu.mdsd.math.interpreter.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -12,5 +13,9 @@ public class MathInterpreterUiModule extends AbstractMathInterpreterUiModule {
 
 	public MathInterpreterUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+	
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return MathInterpreterEObjectHoverProvider.class;
 	}
 }
