@@ -465,9 +465,9 @@ rule__Exp__Group_1__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getExpAccess().getExpLeftAction_1_0()); }
+	{ before(grammarAccess.getExpAccess().getBasicExpLeftAction_1_0()); }
 	()
-	{ after(grammarAccess.getExpAccess().getExpLeftAction_1_0()); }
+	{ after(grammarAccess.getExpAccess().getBasicExpLeftAction_1_0()); }
 )
 ;
 finally {
@@ -708,9 +708,9 @@ rule__Factor__Group_1__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getFactorAccess().getFactorLeftAction_1_0()); }
+	{ before(grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0()); }
 	()
-	{ after(grammarAccess.getFactorAccess().getFactorLeftAction_1_0()); }
+	{ after(grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0()); }
 )
 ;
 finally {

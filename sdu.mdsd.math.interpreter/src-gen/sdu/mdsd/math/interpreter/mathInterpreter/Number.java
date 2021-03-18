@@ -20,7 +20,7 @@ package sdu.mdsd.math.interpreter.mathInterpreter;
  * @model
  * @generated
  */
-public interface Number extends Primary
+public interface Number extends Exp
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

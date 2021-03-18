@@ -24,7 +24,7 @@ import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
  *
  * @generated
  */
-public class NumberImpl extends PrimaryImpl implements sdu.mdsd.math.interpreter.mathInterpreter.Number
+public class NumberImpl extends ExpImpl implements sdu.mdsd.math.interpreter.mathInterpreter.Number
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.

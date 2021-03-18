@@ -11,25 +11,25 @@
     </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//Exp">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Exp/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Exp/operator"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Exp/right"/>
     </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//ExpOp"/>
-    <genClasses ecoreClass="MathInterpreter.ecore#//Factor">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Factor/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Factor/operator"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Factor/right"/>
-    </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//FactorOp"/>
-    <genClasses ecoreClass="MathInterpreter.ecore#//Primary"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Parenthesis">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//Parenthesis/exp"/>
     </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//Number">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MathInterpreter.ecore#//Number/value"/>
     </genClasses>
+    <genClasses ecoreClass="MathInterpreter.ecore#//BasicExp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//BasicExp/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//BasicExp/right"/>
+    </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//Plus"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Minus"/>
+    <genClasses ecoreClass="MathInterpreter.ecore#//FactorExp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//FactorExp/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MathInterpreter.ecore#//FactorExp/right"/>
+    </genClasses>
     <genClasses ecoreClass="MathInterpreter.ecore#//Mult"/>
     <genClasses ecoreClass="MathInterpreter.ecore#//Div"/>
   </genPackages>

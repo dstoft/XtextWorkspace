@@ -11,10 +11,11 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import sdu.mdsd.math.interpreter.mathInterpreter.BasicExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
-import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterFactory;
@@ -23,7 +24,6 @@ import sdu.mdsd.math.interpreter.mathInterpreter.Minus;
 import sdu.mdsd.math.interpreter.mathInterpreter.Mult;
 import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis;
 import sdu.mdsd.math.interpreter.mathInterpreter.Plus;
-import sdu.mdsd.math.interpreter.mathInterpreter.Primary;
 
 /**
  * <!-- begin-user-doc -->
@@ -80,13 +80,13 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
       case MathInterpreterPackage.MATH_EXP: return createMathExp();
       case MathInterpreterPackage.EXP: return createExp();
       case MathInterpreterPackage.EXP_OP: return createExpOp();
-      case MathInterpreterPackage.FACTOR: return createFactor();
       case MathInterpreterPackage.FACTOR_OP: return createFactorOp();
-      case MathInterpreterPackage.PRIMARY: return createPrimary();
       case MathInterpreterPackage.PARENTHESIS: return createParenthesis();
       case MathInterpreterPackage.NUMBER: return createNumber();
+      case MathInterpreterPackage.BASIC_EXP: return createBasicExp();
       case MathInterpreterPackage.PLUS: return createPlus();
       case MathInterpreterPackage.MINUS: return createMinus();
+      case MathInterpreterPackage.FACTOR_EXP: return createFactorExp();
       case MathInterpreterPackage.MULT: return createMult();
       case MathInterpreterPackage.DIV: return createDiv();
       default:
@@ -136,34 +136,10 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
    * @generated
    */
   @Override
-  public Factor createFactor()
-  {
-    FactorImpl factor = new FactorImpl();
-    return factor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public FactorOp createFactorOp()
   {
     FactorOpImpl factorOp = new FactorOpImpl();
     return factorOp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Primary createPrimary()
-  {
-    PrimaryImpl primary = new PrimaryImpl();
-    return primary;
   }
 
   /**
@@ -196,6 +172,18 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
    * @generated
    */
   @Override
+  public BasicExp createBasicExp()
+  {
+    BasicExpImpl basicExp = new BasicExpImpl();
+    return basicExp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Plus createPlus()
   {
     PlusImpl plus = new PlusImpl();
@@ -212,6 +200,18 @@ public class MathInterpreterFactoryImpl extends EFactoryImpl implements MathInte
   {
     MinusImpl minus = new MinusImpl();
     return minus;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public FactorExp createFactorExp()
+  {
+    FactorExpImpl factorExp = new FactorExpImpl();
+    return factorExp;
   }
 
   /**

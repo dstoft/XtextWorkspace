@@ -51,15 +51,6 @@ public interface MathInterpreterFactory extends EFactory
   ExpOp createExpOp();
 
   /**
-   * Returns a new object of class '<em>Factor</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Factor</em>'.
-   * @generated
-   */
-  Factor createFactor();
-
-  /**
    * Returns a new object of class '<em>Factor Op</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -67,15 +58,6 @@ public interface MathInterpreterFactory extends EFactory
    * @generated
    */
   FactorOp createFactorOp();
-
-  /**
-   * Returns a new object of class '<em>Primary</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Primary</em>'.
-   * @generated
-   */
-  Primary createPrimary();
 
   /**
    * Returns a new object of class '<em>Parenthesis</em>'.
@@ -96,6 +78,15 @@ public interface MathInterpreterFactory extends EFactory
   Number createNumber();
 
   /**
+   * Returns a new object of class '<em>Basic Exp</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Basic Exp</em>'.
+   * @generated
+   */
+  BasicExp createBasicExp();
+
+  /**
    * Returns a new object of class '<em>Plus</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -112,6 +103,15 @@ public interface MathInterpreterFactory extends EFactory
    * @generated
    */
   Minus createMinus();
+
+  /**
+   * Returns a new object of class '<em>Factor Exp</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Factor Exp</em>'.
+   * @generated
+   */
+  FactorExp createFactorExp();
 
   /**
    * Returns a new object of class '<em>Mult</em>'.

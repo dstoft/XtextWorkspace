@@ -8,10 +8,11 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import sdu.mdsd.math.interpreter.mathInterpreter.BasicExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
-import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
@@ -19,7 +20,6 @@ import sdu.mdsd.math.interpreter.mathInterpreter.Minus;
 import sdu.mdsd.math.interpreter.mathInterpreter.Mult;
 import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis;
 import sdu.mdsd.math.interpreter.mathInterpreter.Plus;
-import sdu.mdsd.math.interpreter.mathInterpreter.Primary;
 
 /**
  * <!-- begin-user-doc -->
@@ -105,13 +105,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MathInterpreterPackage.FACTOR:
-      {
-        Factor factor = (Factor)theEObject;
-        T result = caseFactor(factor);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case MathInterpreterPackage.FACTOR_OP:
       {
         FactorOp factorOp = (FactorOp)theEObject;
@@ -119,18 +112,11 @@ public class MathInterpreterSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MathInterpreterPackage.PRIMARY:
-      {
-        Primary primary = (Primary)theEObject;
-        T result = casePrimary(primary);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case MathInterpreterPackage.PARENTHESIS:
       {
         Parenthesis parenthesis = (Parenthesis)theEObject;
         T result = caseParenthesis(parenthesis);
-        if (result == null) result = casePrimary(parenthesis);
+        if (result == null) result = caseExp(parenthesis);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -138,7 +124,15 @@ public class MathInterpreterSwitch<T> extends Switch<T>
       {
         sdu.mdsd.math.interpreter.mathInterpreter.Number number = (sdu.mdsd.math.interpreter.mathInterpreter.Number)theEObject;
         T result = caseNumber(number);
-        if (result == null) result = casePrimary(number);
+        if (result == null) result = caseExp(number);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MathInterpreterPackage.BASIC_EXP:
+      {
+        BasicExp basicExp = (BasicExp)theEObject;
+        T result = caseBasicExp(basicExp);
+        if (result == null) result = caseExp(basicExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -155,6 +149,14 @@ public class MathInterpreterSwitch<T> extends Switch<T>
         Minus minus = (Minus)theEObject;
         T result = caseMinus(minus);
         if (result == null) result = caseExpOp(minus);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MathInterpreterPackage.FACTOR_EXP:
+      {
+        FactorExp factorExp = (FactorExp)theEObject;
+        T result = caseFactorExp(factorExp);
+        if (result == null) result = caseExp(factorExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -227,22 +229,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Factor</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Factor</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFactor(Factor object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Factor Op</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -254,22 +240,6 @@ public class MathInterpreterSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFactorOp(FactorOp object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Primary</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Primary</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePrimary(Primary object)
   {
     return null;
   }
@@ -307,6 +277,22 @@ public class MathInterpreterSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Basic Exp</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Basic Exp</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBasicExp(BasicExp object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Plus</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -334,6 +320,22 @@ public class MathInterpreterSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMinus(Minus object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Factor Exp</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Factor Exp</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFactorExp(FactorExp object)
   {
     return null;
   }

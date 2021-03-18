@@ -6,23 +6,23 @@ MathExp:
 	'result' 'is' exp=Exp
 ;
 
-Exp:
-	left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*
+Exp returns Exp:
+	left=Factor ({BasicExp.left=current} operator=ExpOp right=Factor)*
 ;
 
 ExpOp:
 	{Plus} '+' | {Minus} '-'	
 ;
 
-Factor:
-	left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*
+Factor returns Exp:
+	left=Primary ({FactorExp.left=current} operator=FactorOp right=Primary)*
 ;
 
 FactorOp:
 	{Mult} '*' | {Div} '/'
 ;
 
-Primary:
+Primary returns Exp:
 	Number | Parenthesis
 ;
 

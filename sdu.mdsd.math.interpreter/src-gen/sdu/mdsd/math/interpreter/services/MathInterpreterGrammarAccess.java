@@ -56,17 +56,17 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		private final Assignment cLeftAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cLeftFactorParserRuleCall_0_0 = (RuleCall)cLeftAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cExpLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cBasicExpLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cOperatorExpOpParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightFactorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//Exp:
-		//	left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*;
+		//	left=Factor ({BasicExp.left=current} operator=ExpOp right=Factor)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*
+		//left=Factor ({BasicExp.left=current} operator=ExpOp right=Factor)*
 		public Group getGroup() { return cGroup; }
 		
 		//left=Factor
@@ -75,11 +75,11 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		//Factor
 		public RuleCall getLeftFactorParserRuleCall_0_0() { return cLeftFactorParserRuleCall_0_0; }
 		
-		//({Exp.left=current} operator=ExpOp right=Factor)*
+		//({BasicExp.left=current} operator=ExpOp right=Factor)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{Exp.left=current}
-		public Action getExpLeftAction_1_0() { return cExpLeftAction_1_0; }
+		//{BasicExp.left=current}
+		public Action getBasicExpLeftAction_1_0() { return cBasicExpLeftAction_1_0; }
 		
 		//operator=ExpOp
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
@@ -134,17 +134,17 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		private final Assignment cLeftAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cLeftPrimaryParserRuleCall_0_0 = (RuleCall)cLeftAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cFactorLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cFactorExpLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cOperatorFactorOpParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightPrimaryParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
-		//Factor:
-		//	left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*;
+		//Factor Exp:
+		//	left=Primary ({FactorExp.left=current} operator=FactorOp right=Primary)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*
+		//left=Primary ({FactorExp.left=current} operator=FactorOp right=Primary)*
 		public Group getGroup() { return cGroup; }
 		
 		//left=Primary
@@ -153,11 +153,11 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		//Primary
 		public RuleCall getLeftPrimaryParserRuleCall_0_0() { return cLeftPrimaryParserRuleCall_0_0; }
 		
-		//({Factor.left=current} operator=FactorOp right=Primary)*
+		//({FactorExp.left=current} operator=FactorOp right=Primary)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{Factor.left=current}
-		public Action getFactorLeftAction_1_0() { return cFactorLeftAction_1_0; }
+		//{FactorExp.left=current}
+		public Action getFactorExpLeftAction_1_0() { return cFactorExpLeftAction_1_0; }
 		
 		//operator=FactorOp
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
@@ -212,7 +212,7 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		private final RuleCall cNumberParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cParenthesisParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Primary:
+		//Primary Exp:
 		//	Number | Parenthesis;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -335,7 +335,7 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 	}
 	
 	//Exp:
-	//	left=Factor ({Exp.left=current} operator=ExpOp right=Factor)*;
+	//	left=Factor ({BasicExp.left=current} operator=ExpOp right=Factor)*;
 	public ExpElements getExpAccess() {
 		return pExp;
 	}
@@ -354,8 +354,8 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		return getExpOpAccess().getRule();
 	}
 	
-	//Factor:
-	//	left=Primary ({Factor.left=current} operator=FactorOp right=Primary)*;
+	//Factor Exp:
+	//	left=Primary ({FactorExp.left=current} operator=FactorOp right=Primary)*;
 	public FactorElements getFactorAccess() {
 		return pFactor;
 	}
@@ -374,7 +374,7 @@ public class MathInterpreterGrammarAccess extends AbstractElementFinder.Abstract
 		return getFactorOpAccess().getRule();
 	}
 	
-	//Primary:
+	//Primary Exp:
 	//	Number | Parenthesis;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;

@@ -28,7 +28,7 @@ import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis;
  *
  * @generated
  */
-public class ParenthesisImpl extends PrimaryImpl implements Parenthesis
+public class ParenthesisImpl extends ExpImpl implements Parenthesis
 {
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.

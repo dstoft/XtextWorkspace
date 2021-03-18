@@ -1417,13 +1417,13 @@ public class InternalMathInterpreterParser extends AbstractInternalContentAssist
             // InternalMathInterpreter.g:467:1: ( () )
             // InternalMathInterpreter.g:468:2: ()
             {
-             before(grammarAccess.getExpAccess().getExpLeftAction_1_0()); 
+             before(grammarAccess.getExpAccess().getBasicExpLeftAction_1_0()); 
             // InternalMathInterpreter.g:469:2: ()
             // InternalMathInterpreter.g:469:3: 
             {
             }
 
-             after(grammarAccess.getExpAccess().getExpLeftAction_1_0()); 
+             after(grammarAccess.getExpAccess().getBasicExpLeftAction_1_0()); 
 
             }
 
@@ -2130,13 +2130,13 @@ public class InternalMathInterpreterParser extends AbstractInternalContentAssist
             // InternalMathInterpreter.g:710:1: ( () )
             // InternalMathInterpreter.g:711:2: ()
             {
-             before(grammarAccess.getFactorAccess().getFactorLeftAction_1_0()); 
+             before(grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0()); 
             // InternalMathInterpreter.g:712:2: ()
             // InternalMathInterpreter.g:712:3: 
             {
             }
 
-             after(grammarAccess.getFactorAccess().getFactorLeftAction_1_0()); 
+             after(grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0()); 
 
             }
 

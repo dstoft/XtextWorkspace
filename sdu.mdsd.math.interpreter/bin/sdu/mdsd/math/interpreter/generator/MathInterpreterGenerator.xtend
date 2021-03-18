@@ -9,20 +9,20 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import sdu.mdsd.math.interpreter.mathInterpreter.Div
-import sdu.mdsd.math.interpreter.mathInterpreter.Factor
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp
 import sdu.mdsd.math.interpreter.mathInterpreter.Minus
 import sdu.mdsd.math.interpreter.mathInterpreter.Mult
 import sdu.mdsd.math.interpreter.mathInterpreter.Plus
-import sdu.mdsd.math.interpreter.mathInterpreter.Primary
-import sdu.mdsd.math.interpreter.mathInterpreter.Exp
 import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis
-import sdu.mdsd.math.interpreter.mathInterpreter.impl.PrimaryImpl
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.NumberImpl
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.ParenthesisImpl
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.PlusImpl
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.MinusImpl
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.ExpOpImpl
+import sdu.mdsd.math.interpreter.mathInterpreter.BasicExp
+import sdu.mdsd.math.interpreter.mathInterpreter.Exp
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorExp
+import sdu.mdsd.math.interpreter.mathInterpreter.impl.FactorExpImpl
 
 /**
  * Generates code from your model files on save.
@@ -36,7 +36,14 @@ class MathInterpreterGenerator extends AbstractGenerator {
 		val result = math.compute
 		System.out.println("Math expression = "+math.display)
 		// For +1 score, replace with hovering, see Bettini Chapter 8
-		JOptionPane.showMessageDialog(null, "result = "+result,"Math Language", JOptionPane.INFORMATION_MESSAGE)
+		//JOptionPane.showMessageDialog(null, "result = "+result,"Math Language", JOptionPane.INFORMATION_MESSAGE)
+		
+		
+		resource.allContents.toIterable.filter(typeof(MathExp)).forEach[
+			fsa.generateFile('''«resource.URI.lastSegment».evaluated''', 
+				compute.toString
+			)
+		]
 	}
 	
 	//
@@ -52,62 +59,41 @@ class MathInterpreterGenerator extends AbstractGenerator {
 		math.exp.computeExp
 	}
 	
-	def int computeExp(Exp exp) {
-		var left = 0
-		
-		if(exp.left === null) {
-			System.out.println("left is null!")
-		}
-		if(exp.operator === null) {
-			System.out.println("op is null!")
-		}
-		if(exp.right === null) {
-			System.out.println("right is null!")
-		}
-		
-		
-		switch exp.left {
-			Exp: left = (exp.left as Exp).computeExp
-			Factor: return (exp.left as Factor).computeFactor
-			default: System.out.println("Left is default")
-		}
+	def dispatch int computeExp(Exp exp) {
+		exp.left.computeExp
+	}
+	
+	def dispatch int computeExp(BasicExp exp) {
+		System.out.println("computing BasicExp")
 		switch exp.operator {
-			Plus: left + exp.right.computeFactor
-			Minus: left - exp.right.computeFactor
-			default: left
+			Plus: exp.left.computeExp + exp.right.computeExp
+			Minus: exp.left.computeExp - exp.right.computeExp
+			default: exp.left.computeExp
 		}
 	}
 	
-	def int computeFactor(Factor factor) {
-		var left = 0
-		
-		switch factor.left {
-			Factor: left = (factor.left as Factor).computeFactor
-			Primary: left = (factor.left as Primary).computePrim
-		}
-		
+	def dispatch int computeExp(FactorExp factor) {
 		switch factor.operator {
-			Mult: left * factor.right.computePrim
-			Div: left / factor.right.computePrim
-			default: left
+			Mult: factor.left.computeExp * factor.right.computeExp
+			Div: factor.left.computeExp / factor.right.computeExp
+			default: factor.left.computeExp
 		}
 	}
 	
-	def int computePrim(Primary primary) { 
-		switch primary {
-			Number: return (primary as Number).intValue
-			Parenthesis: return (primary as Parenthesis).exp.computeExp
-			PrimaryImpl: return (primary as PrimaryImpl).computePrim
-			default: -1000
-		}
+	def dispatch int computeExp(Number number) {
+		number.intValue
 	}
 	
-	def int computePrim(PrimaryImpl primary) {
-		switch primary {
-			NumberImpl: return (primary as NumberImpl).value
-			ParenthesisImpl: return (primary as ParenthesisImpl).exp.computeExp
-			default: -100
-		}
+	def dispatch int computeExp(NumberImpl number) {
+		number.value
+	}
+	
+	def dispatch int computeExp(Parenthesis parenthesis) {
+		parenthesis.exp.computeExp
+	}
+	
+	def dispatch int computeExp(ParenthesisImpl parenthesis) {
+		parenthesis.exp.computeExp
 	}
 
 	//
@@ -115,48 +101,18 @@ class MathInterpreterGenerator extends AbstractGenerator {
 	// Note: written according to illegal left-recursive grammar, requires fix
 	//
 
+	def static CharSequence staticDisplay(MathExp math) {
+		(new MathInterpreterGenerator).display(math)
+	}
+
 	def CharSequence display(MathExp math) '''Math[«math.exp.displayExp»]'''
-	//def CharSequence displayExp(Exp exp) ''''''
-	def CharSequence displayExp(Exp exp) {
-		switch (exp.left) {
-			Exp:
-				'''«(exp.left as Exp).displayExp» «exp.operator?.displayOp» «exp.right?.displayFactor»'''
-			Factor:
-				'''«(exp.left as Factor).displayFactor»'''
-			default:
-				'''Mega wow'''
-		}
-	} //'''Exp[«exp.left.displayPrim»,«exp.operator?.displayOp»,«exp.right?.displayExp»]'''
-	def CharSequence displayFactor(Factor fac) {
-		switch (fac.left) {
-			Factor:
-				'''«(fac.left as Factor).displayFactor» «fac.operator?.displayOp» «fac.right?.displayPrim»'''
-			Primary:
-				'''«(fac.left as Primary).displayPrim»'''
-			default:
-				'''Uber wow'''
-		}
-	}
-	def CharSequence displayPrim(Primary primary) {
-		switch (primary) {
-			Number:
-				'''«(primary as Number).intValue»'''
-			Parenthesis:
-				'''(«(primary as Parenthesis).exp.displayExp»)'''
-			PrimaryImpl:
-				'''«(primary as PrimaryImpl).displayPrim»'''
-		}
-	}
-	def CharSequence displayPrim(PrimaryImpl primary)  {
-		switch (primary) {
-			NumberImpl:
-				'''«(primary as NumberImpl).value»'''
-			ParenthesisImpl:
-				'''(«(primary as ParenthesisImpl).exp.displayExp»)'''
-			PrimaryImpl:
-				'''crazy wow'''
-		}
-	}
+	def dispatch CharSequence displayExp(Exp exp) '''«exp.left.displayExp»'''
+	def dispatch CharSequence displayExp(BasicExp exp) '''«exp.left.displayExp» «exp.operator?.displayOp» «exp.right?.displayExp»'''
+	def dispatch CharSequence displayExp(FactorExp fac) '''«fac.left.displayExp» «fac.operator?.displayOp» «fac.right.displayExp»'''
+	def dispatch CharSequence displayExp(Number primary) '''«primary.intValue»'''
+	def dispatch CharSequence displayExp(Parenthesis primary) '''(«primary.exp.displayExp»)'''
+	def dispatch CharSequence displayExp(NumberImpl primary) '''«primary.value»'''
+	def dispatch CharSequence displayExp(ParenthesisImpl primary) '''(«primary.exp.displayExp»)'''
 	def dispatch String displayOp(Plus op)  { "+" }
 	def dispatch String displayOp(Minus op) { "-" }
 	def dispatch String displayOp(Mult op) { "*" }

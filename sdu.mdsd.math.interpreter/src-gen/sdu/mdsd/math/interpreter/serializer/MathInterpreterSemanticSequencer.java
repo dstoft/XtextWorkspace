@@ -14,9 +14,10 @@ import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import sdu.mdsd.math.interpreter.mathInterpreter.BasicExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
-import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
 import sdu.mdsd.math.interpreter.mathInterpreter.Minus;
@@ -39,14 +40,26 @@ public class MathInterpreterSemanticSequencer extends AbstractDelegatingSemantic
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == MathInterpreterPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case MathInterpreterPackage.BASIC_EXP:
+				sequence_Exp(context, (BasicExp) semanticObject); 
+				return; 
 			case MathInterpreterPackage.DIV:
 				sequence_FactorOp(context, (Div) semanticObject); 
 				return; 
 			case MathInterpreterPackage.EXP:
-				sequence_Exp(context, (Exp) semanticObject); 
-				return; 
-			case MathInterpreterPackage.FACTOR:
-				sequence_Factor(context, (Factor) semanticObject); 
+				if (rule == grammarAccess.getExpRule()
+						|| action == grammarAccess.getExpAccess().getBasicExpLeftAction_1_0()) {
+					sequence_Exp(context, (Exp) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getFactorRule()
+						|| action == grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0()) {
+					sequence_Factor(context, (Exp) semanticObject); 
+					return; 
+				}
+				else break;
+			case MathInterpreterPackage.FACTOR_EXP:
+				sequence_Factor(context, (FactorExp) semanticObject); 
 				return; 
 			case MathInterpreterPackage.MATH_EXP:
 				sequence_MathExp(context, (MathExp) semanticObject); 
@@ -97,14 +110,45 @@ public class MathInterpreterSemanticSequencer extends AbstractDelegatingSemantic
 	
 	/**
 	 * Contexts:
-	 *     Exp returns Exp
-	 *     Exp.Exp_1_0 returns Exp
+	 *     Exp returns BasicExp
+	 *     Exp.BasicExp_1_0 returns BasicExp
 	 *
 	 * Constraint:
-	 *     (left=Factor | (left=Exp_Exp_1_0 operator=ExpOp right=Factor))
+	 *     (left=Exp_BasicExp_1_0 operator=ExpOp right=Factor)
+	 */
+	protected void sequence_Exp(ISerializationContext context, BasicExp semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT));
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.BASIC_EXP__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.BASIC_EXP__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.BASIC_EXP__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.BASIC_EXP__RIGHT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getExpAccess().getBasicExpLeftAction_1_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getExpAccess().getOperatorExpOpParserRuleCall_1_1_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getExpAccess().getRightFactorParserRuleCall_1_2_0(), semanticObject.getRight());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Exp returns Exp
+	 *     Exp.BasicExp_1_0 returns Exp
+	 *
+	 * Constraint:
+	 *     left=Factor
 	 */
 	protected void sequence_Exp(ISerializationContext context, Exp semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getExpAccess().getLeftFactorParserRuleCall_0_0(), semanticObject.getLeft());
+		feeder.finish();
 	}
 	
 	
@@ -134,14 +178,45 @@ public class MathInterpreterSemanticSequencer extends AbstractDelegatingSemantic
 	
 	/**
 	 * Contexts:
-	 *     Factor returns Factor
-	 *     Factor.Factor_1_0 returns Factor
+	 *     Factor returns Exp
+	 *     Factor.FactorExp_1_0 returns Exp
 	 *
 	 * Constraint:
-	 *     (left=Primary | (left=Factor_Factor_1_0 operator=FactorOp right=Primary))
+	 *     left=Primary
 	 */
-	protected void sequence_Factor(ISerializationContext context, Factor semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_Factor(ISerializationContext context, Exp semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFactorAccess().getLeftPrimaryParserRuleCall_0_0(), semanticObject.getLeft());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Factor returns FactorExp
+	 *     Factor.FactorExp_1_0 returns FactorExp
+	 *
+	 * Constraint:
+	 *     (left=Factor_FactorExp_1_0 operator=FactorOp right=Primary)
+	 */
+	protected void sequence_Factor(ISerializationContext context, FactorExp semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.EXP__LEFT));
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.FACTOR_EXP__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.FACTOR_EXP__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, MathInterpreterPackage.Literals.FACTOR_EXP__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MathInterpreterPackage.Literals.FACTOR_EXP__RIGHT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getFactorAccess().getOperatorFactorOpParserRuleCall_1_1_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getFactorAccess().getRightPrimaryParserRuleCall_1_2_0(), semanticObject.getRight());
+		feeder.finish();
 	}
 	
 	

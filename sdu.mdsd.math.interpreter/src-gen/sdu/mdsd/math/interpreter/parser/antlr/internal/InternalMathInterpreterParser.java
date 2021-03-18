@@ -305,7 +305,7 @@ public class InternalMathInterpreterParser extends AbstractInternalAntlrParser {
             	    {
 
             	    					current = forceCreateModelElementAndSet(
-            	    						grammarAccess.getExpAccess().getExpLeftAction_1_0(),
+            	    						grammarAccess.getExpAccess().getBasicExpLeftAction_1_0(),
             	    						current);
             	    				
 
@@ -657,7 +657,7 @@ public class InternalMathInterpreterParser extends AbstractInternalAntlrParser {
             	    {
 
             	    					current = forceCreateModelElementAndSet(
-            	    						grammarAccess.getFactorAccess().getFactorLeftAction_1_0(),
+            	    						grammarAccess.getFactorAccess().getFactorExpLeftAction_1_0(),
             	    						current);
             	    				
 

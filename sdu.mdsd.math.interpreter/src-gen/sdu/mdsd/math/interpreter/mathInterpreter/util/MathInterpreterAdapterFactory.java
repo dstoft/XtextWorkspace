@@ -10,10 +10,11 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import sdu.mdsd.math.interpreter.mathInterpreter.BasicExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
-import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathInterpreterPackage;
@@ -21,7 +22,6 @@ import sdu.mdsd.math.interpreter.mathInterpreter.Minus;
 import sdu.mdsd.math.interpreter.mathInterpreter.Mult;
 import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis;
 import sdu.mdsd.math.interpreter.mathInterpreter.Plus;
-import sdu.mdsd.math.interpreter.mathInterpreter.Primary;
 
 /**
  * <!-- begin-user-doc -->
@@ -102,19 +102,9 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
         return createExpOpAdapter();
       }
       @Override
-      public Adapter caseFactor(Factor object)
-      {
-        return createFactorAdapter();
-      }
-      @Override
       public Adapter caseFactorOp(FactorOp object)
       {
         return createFactorOpAdapter();
-      }
-      @Override
-      public Adapter casePrimary(Primary object)
-      {
-        return createPrimaryAdapter();
       }
       @Override
       public Adapter caseParenthesis(Parenthesis object)
@@ -127,6 +117,11 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
         return createNumberAdapter();
       }
       @Override
+      public Adapter caseBasicExp(BasicExp object)
+      {
+        return createBasicExpAdapter();
+      }
+      @Override
       public Adapter casePlus(Plus object)
       {
         return createPlusAdapter();
@@ -135,6 +130,11 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
       public Adapter caseMinus(Minus object)
       {
         return createMinusAdapter();
+      }
+      @Override
+      public Adapter caseFactorExp(FactorExp object)
+      {
+        return createFactorExpAdapter();
       }
       @Override
       public Adapter caseMult(Mult object)
@@ -214,21 +214,6 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link sdu.mdsd.math.interpreter.mathInterpreter.Factor <em>Factor</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.Factor
-   * @generated
-   */
-  public Adapter createFactorAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link sdu.mdsd.math.interpreter.mathInterpreter.FactorOp <em>Factor Op</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -239,21 +224,6 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFactorOpAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link sdu.mdsd.math.interpreter.mathInterpreter.Primary <em>Primary</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see sdu.mdsd.math.interpreter.mathInterpreter.Primary
-   * @generated
-   */
-  public Adapter createPrimaryAdapter()
   {
     return null;
   }
@@ -289,6 +259,21 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link sdu.mdsd.math.interpreter.mathInterpreter.BasicExp <em>Basic Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see sdu.mdsd.math.interpreter.mathInterpreter.BasicExp
+   * @generated
+   */
+  public Adapter createBasicExpAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link sdu.mdsd.math.interpreter.mathInterpreter.Plus <em>Plus</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -314,6 +299,21 @@ public class MathInterpreterAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMinusAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link sdu.mdsd.math.interpreter.mathInterpreter.FactorExp <em>Factor Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see sdu.mdsd.math.interpreter.mathInterpreter.FactorExp
+   * @generated
+   */
+  public Adapter createFactorExpAdapter()
   {
     return null;
   }

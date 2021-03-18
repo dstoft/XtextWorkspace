@@ -3,29 +3,30 @@
  */
 package sdu.mdsd.math.interpreter.generator;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import java.util.Arrays;
-import javax.swing.JOptionPane;
+import java.util.function.Consumer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import sdu.mdsd.math.interpreter.mathInterpreter.BasicExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Div;
 import sdu.mdsd.math.interpreter.mathInterpreter.Exp;
 import sdu.mdsd.math.interpreter.mathInterpreter.ExpOp;
-import sdu.mdsd.math.interpreter.mathInterpreter.Factor;
+import sdu.mdsd.math.interpreter.mathInterpreter.FactorExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.FactorOp;
 import sdu.mdsd.math.interpreter.mathInterpreter.MathExp;
 import sdu.mdsd.math.interpreter.mathInterpreter.Minus;
 import sdu.mdsd.math.interpreter.mathInterpreter.Mult;
 import sdu.mdsd.math.interpreter.mathInterpreter.Parenthesis;
 import sdu.mdsd.math.interpreter.mathInterpreter.Plus;
-import sdu.mdsd.math.interpreter.mathInterpreter.Primary;
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.NumberImpl;
 import sdu.mdsd.math.interpreter.mathInterpreter.impl.ParenthesisImpl;
-import sdu.mdsd.math.interpreter.mathInterpreter.impl.PrimaryImpl;
 
 /**
  * Generates code from your model files on save.
@@ -41,7 +42,15 @@ public class MathInterpreterGenerator extends AbstractGenerator {
     CharSequence _display = this.display(math);
     String _plus = ("Math expression = " + _display);
     System.out.println(_plus);
-    JOptionPane.showMessageDialog(null, ("result = " + Integer.valueOf(result)), "Math Language", JOptionPane.INFORMATION_MESSAGE);
+    final Consumer<MathExp> _function = (MathExp it) -> {
+      StringConcatenation _builder = new StringConcatenation();
+      String _lastSegment = resource.getURI().lastSegment();
+      _builder.append(_lastSegment);
+      _builder.append(".evaluated");
+      fsa.generateFile(_builder.toString(), 
+        Integer.valueOf(this.compute(it)).toString());
+    };
+    Iterables.<MathExp>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), MathExp.class).forEach(_function);
   }
   
   public static int staticCompute(final MathExp math) {
@@ -52,148 +61,81 @@ public class MathInterpreterGenerator extends AbstractGenerator {
     return this.computeExp(math.getExp());
   }
   
-  public int computeExp(final Exp exp) {
+  protected int _computeExp(final Exp exp) {
+    return this.computeExp(exp.getLeft());
+  }
+  
+  protected int _computeExp(final BasicExp exp) {
     int _xblockexpression = (int) 0;
     {
-      int left = 0;
-      EObject _left = exp.getLeft();
-      boolean _tripleEquals = (_left == null);
-      if (_tripleEquals) {
-        System.out.println("left is null!");
-      }
+      System.out.println("computing BasicExp");
+      int _switchResult = (int) 0;
       ExpOp _operator = exp.getOperator();
-      boolean _tripleEquals_1 = (_operator == null);
-      if (_tripleEquals_1) {
-        System.out.println("op is null!");
-      }
-      Factor _right = exp.getRight();
-      boolean _tripleEquals_2 = (_right == null);
-      if (_tripleEquals_2) {
-        System.out.println("right is null!");
-      }
-      EObject _left_1 = exp.getLeft();
       boolean _matched = false;
-      if (_left_1 instanceof Exp) {
+      if (_operator instanceof Plus) {
         _matched=true;
-        EObject _left_2 = exp.getLeft();
-        left = this.computeExp(((Exp) _left_2));
+        int _computeExp = this.computeExp(exp.getLeft());
+        int _computeExp_1 = this.computeExp(exp.getRight());
+        _switchResult = (_computeExp + _computeExp_1);
       }
       if (!_matched) {
-        if (_left_1 instanceof Factor) {
+        if (_operator instanceof Minus) {
           _matched=true;
-          EObject _left_2 = exp.getLeft();
-          return this.computeFactor(((Factor) _left_2));
+          int _computeExp = this.computeExp(exp.getLeft());
+          int _computeExp_1 = this.computeExp(exp.getRight());
+          _switchResult = (_computeExp - _computeExp_1);
         }
       }
       if (!_matched) {
-        System.out.println("Left is default");
+        _switchResult = this.computeExp(exp.getLeft());
       }
-      int _switchResult_1 = (int) 0;
-      ExpOp _operator_1 = exp.getOperator();
-      boolean _matched_1 = false;
-      if (_operator_1 instanceof Plus) {
-        _matched_1=true;
-        int _computeFactor = this.computeFactor(exp.getRight());
-        _switchResult_1 = (left + _computeFactor);
-      }
-      if (!_matched_1) {
-        if (_operator_1 instanceof Minus) {
-          _matched_1=true;
-          int _computeFactor = this.computeFactor(exp.getRight());
-          _switchResult_1 = (left - _computeFactor);
-        }
-      }
-      if (!_matched_1) {
-        _switchResult_1 = left;
-      }
-      _xblockexpression = _switchResult_1;
+      _xblockexpression = _switchResult;
     }
     return _xblockexpression;
   }
   
-  public int computeFactor(final Factor factor) {
-    int _xblockexpression = (int) 0;
-    {
-      int left = 0;
-      EObject _left = factor.getLeft();
-      boolean _matched = false;
-      if (_left instanceof Factor) {
-        _matched=true;
-        EObject _left_1 = factor.getLeft();
-        left = this.computeFactor(((Factor) _left_1));
-      }
-      if (!_matched) {
-        if (_left instanceof Primary) {
-          _matched=true;
-          EObject _left_1 = factor.getLeft();
-          left = this.computePrim(((Primary) _left_1));
-        }
-      }
-      int _switchResult_1 = (int) 0;
-      FactorOp _operator = factor.getOperator();
-      boolean _matched_1 = false;
-      if (_operator instanceof Mult) {
-        _matched_1=true;
-        int _computePrim = this.computePrim(factor.getRight());
-        _switchResult_1 = (left * _computePrim);
-      }
-      if (!_matched_1) {
-        if (_operator instanceof Div) {
-          _matched_1=true;
-          int _computePrim = this.computePrim(factor.getRight());
-          _switchResult_1 = (left / _computePrim);
-        }
-      }
-      if (!_matched_1) {
-        _switchResult_1 = left;
-      }
-      _xblockexpression = _switchResult_1;
-    }
-    return _xblockexpression;
-  }
-  
-  public int computePrim(final Primary primary) {
+  protected int _computeExp(final FactorExp factor) {
     int _switchResult = (int) 0;
+    FactorOp _operator = factor.getOperator();
     boolean _matched = false;
-    if (primary instanceof Number) {
+    if (_operator instanceof Mult) {
       _matched=true;
-      return ((Number) primary).intValue();
+      int _computeExp = this.computeExp(factor.getLeft());
+      int _computeExp_1 = this.computeExp(factor.getRight());
+      _switchResult = (_computeExp * _computeExp_1);
     }
     if (!_matched) {
-      if (primary instanceof Parenthesis) {
+      if (_operator instanceof Div) {
         _matched=true;
-        return this.computeExp(((Parenthesis) primary).getExp());
+        int _computeExp = this.computeExp(factor.getLeft());
+        int _computeExp_1 = this.computeExp(factor.getRight());
+        _switchResult = (_computeExp / _computeExp_1);
       }
     }
     if (!_matched) {
-      if (primary instanceof PrimaryImpl) {
-        _matched=true;
-        return this.computePrim(((PrimaryImpl) primary));
-      }
-    }
-    if (!_matched) {
-      _switchResult = (-1000);
+      _switchResult = this.computeExp(factor.getLeft());
     }
     return _switchResult;
   }
   
-  public int computePrim(final PrimaryImpl primary) {
-    int _switchResult = (int) 0;
-    boolean _matched = false;
-    if (primary instanceof NumberImpl) {
-      _matched=true;
-      return ((NumberImpl) primary).getValue();
-    }
-    if (!_matched) {
-      if (primary instanceof ParenthesisImpl) {
-        _matched=true;
-        return this.computeExp(((ParenthesisImpl) primary).getExp());
-      }
-    }
-    if (!_matched) {
-      _switchResult = (-100);
-    }
-    return _switchResult;
+  protected int _computeExp(final Number number) {
+    return number.intValue();
+  }
+  
+  protected int _computeExp(final NumberImpl number) {
+    return number.getValue();
+  }
+  
+  protected int _computeExp(final Parenthesis parenthesis) {
+    return this.computeExp(parenthesis.getExp());
+  }
+  
+  protected int _computeExp(final ParenthesisImpl parenthesis) {
+    return this.computeExp(parenthesis.getExp());
+  }
+  
+  public static CharSequence staticDisplay(final MathExp math) {
+    return new MathInterpreterGenerator().display(math);
   }
   
   public CharSequence display(final MathExp math) {
@@ -205,157 +147,81 @@ public class MathInterpreterGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence displayExp(final Exp exp) {
-    CharSequence _switchResult = null;
-    EObject _left = exp.getLeft();
-    boolean _matched = false;
-    if (_left instanceof Exp) {
-      _matched=true;
-      StringConcatenation _builder = new StringConcatenation();
-      EObject _left_1 = exp.getLeft();
-      CharSequence _displayExp = this.displayExp(((Exp) _left_1));
-      _builder.append(_displayExp);
-      _builder.append(" ");
-      ExpOp _operator = exp.getOperator();
-      String _displayOp = null;
-      if (_operator!=null) {
-        _displayOp=this.displayOp(_operator);
-      }
-      _builder.append(_displayOp);
-      _builder.append(" ");
-      Factor _right = exp.getRight();
-      CharSequence _displayFactor = null;
-      if (_right!=null) {
-        _displayFactor=this.displayFactor(_right);
-      }
-      _builder.append(_displayFactor);
-      _switchResult = _builder;
-    }
-    if (!_matched) {
-      if (_left instanceof Factor) {
-        _matched=true;
-        StringConcatenation _builder = new StringConcatenation();
-        EObject _left_1 = exp.getLeft();
-        CharSequence _displayFactor = this.displayFactor(((Factor) _left_1));
-        _builder.append(_displayFactor);
-        _switchResult = _builder;
-      }
-    }
-    if (!_matched) {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Mega wow");
-      _switchResult = _builder;
-    }
-    return _switchResult;
+  protected CharSequence _displayExp(final Exp exp) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _displayExp = this.displayExp(exp.getLeft());
+    _builder.append(_displayExp);
+    return _builder;
   }
   
-  public CharSequence displayFactor(final Factor fac) {
-    CharSequence _switchResult = null;
-    EObject _left = fac.getLeft();
-    boolean _matched = false;
-    if (_left instanceof Factor) {
-      _matched=true;
-      StringConcatenation _builder = new StringConcatenation();
-      EObject _left_1 = fac.getLeft();
-      CharSequence _displayFactor = this.displayFactor(((Factor) _left_1));
-      _builder.append(_displayFactor);
-      _builder.append(" ");
-      FactorOp _operator = fac.getOperator();
-      String _displayOp = null;
-      if (_operator!=null) {
-        _displayOp=this.displayOp(_operator);
-      }
-      _builder.append(_displayOp);
-      _builder.append(" ");
-      Primary _right = fac.getRight();
-      CharSequence _displayPrim = null;
-      if (_right!=null) {
-        _displayPrim=this.displayPrim(_right);
-      }
-      _builder.append(_displayPrim);
-      _switchResult = _builder;
+  protected CharSequence _displayExp(final BasicExp exp) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _displayExp = this.displayExp(exp.getLeft());
+    _builder.append(_displayExp);
+    _builder.append(" ");
+    ExpOp _operator = exp.getOperator();
+    String _displayOp = null;
+    if (_operator!=null) {
+      _displayOp=this.displayOp(_operator);
     }
-    if (!_matched) {
-      if (_left instanceof Primary) {
-        _matched=true;
-        StringConcatenation _builder = new StringConcatenation();
-        EObject _left_1 = fac.getLeft();
-        CharSequence _displayPrim = this.displayPrim(((Primary) _left_1));
-        _builder.append(_displayPrim);
-        _switchResult = _builder;
-      }
+    _builder.append(_displayOp);
+    _builder.append(" ");
+    Exp _right = exp.getRight();
+    CharSequence _displayExp_1 = null;
+    if (_right!=null) {
+      _displayExp_1=this.displayExp(_right);
     }
-    if (!_matched) {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Uber wow");
-      _switchResult = _builder;
-    }
-    return _switchResult;
+    _builder.append(_displayExp_1);
+    return _builder;
   }
   
-  public CharSequence displayPrim(final Primary primary) {
-    CharSequence _switchResult = null;
-    boolean _matched = false;
-    if (primary instanceof Number) {
-      _matched=true;
-      StringConcatenation _builder = new StringConcatenation();
-      int _intValue = ((Number) primary).intValue();
-      _builder.append(_intValue);
-      _switchResult = _builder;
+  protected CharSequence _displayExp(final FactorExp fac) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _displayExp = this.displayExp(fac.getLeft());
+    _builder.append(_displayExp);
+    _builder.append(" ");
+    FactorOp _operator = fac.getOperator();
+    String _displayOp = null;
+    if (_operator!=null) {
+      _displayOp=this.displayOp(_operator);
     }
-    if (!_matched) {
-      if (primary instanceof Parenthesis) {
-        _matched=true;
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("(");
-        CharSequence _displayExp = this.displayExp(((Parenthesis) primary).getExp());
-        _builder.append(_displayExp);
-        _builder.append(")");
-        _switchResult = _builder;
-      }
-    }
-    if (!_matched) {
-      if (primary instanceof PrimaryImpl) {
-        _matched=true;
-        StringConcatenation _builder = new StringConcatenation();
-        CharSequence _displayPrim = this.displayPrim(((PrimaryImpl) primary));
-        _builder.append(_displayPrim);
-        _switchResult = _builder;
-      }
-    }
-    return _switchResult;
+    _builder.append(_displayOp);
+    _builder.append(" ");
+    CharSequence _displayExp_1 = this.displayExp(fac.getRight());
+    _builder.append(_displayExp_1);
+    return _builder;
   }
   
-  public CharSequence displayPrim(final PrimaryImpl primary) {
-    CharSequence _switchResult = null;
-    boolean _matched = false;
-    if (primary instanceof NumberImpl) {
-      _matched=true;
-      StringConcatenation _builder = new StringConcatenation();
-      int _value = ((NumberImpl) primary).getValue();
-      _builder.append(_value);
-      _switchResult = _builder;
-    }
-    if (!_matched) {
-      if (primary instanceof ParenthesisImpl) {
-        _matched=true;
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("(");
-        CharSequence _displayExp = this.displayExp(((ParenthesisImpl) primary).getExp());
-        _builder.append(_displayExp);
-        _builder.append(")");
-        _switchResult = _builder;
-      }
-    }
-    if (!_matched) {
-      if (primary instanceof PrimaryImpl) {
-        _matched=true;
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("crazy wow");
-        _switchResult = _builder;
-      }
-    }
-    return _switchResult;
+  protected CharSequence _displayExp(final Number primary) {
+    StringConcatenation _builder = new StringConcatenation();
+    int _intValue = primary.intValue();
+    _builder.append(_intValue);
+    return _builder;
+  }
+  
+  protected CharSequence _displayExp(final Parenthesis primary) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("(");
+    CharSequence _displayExp = this.displayExp(primary.getExp());
+    _builder.append(_displayExp);
+    _builder.append(")");
+    return _builder;
+  }
+  
+  protected CharSequence _displayExp(final NumberImpl primary) {
+    StringConcatenation _builder = new StringConcatenation();
+    int _value = primary.getValue();
+    _builder.append(_value);
+    return _builder;
+  }
+  
+  protected CharSequence _displayExp(final ParenthesisImpl primary) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("(");
+    CharSequence _displayExp = this.displayExp(primary.getExp());
+    _builder.append(_displayExp);
+    _builder.append(")");
+    return _builder;
   }
   
   protected String _displayOp(final Plus op) {
@@ -372,6 +238,48 @@ public class MathInterpreterGenerator extends AbstractGenerator {
   
   protected String _displayOp(final Div op) {
     return "/";
+  }
+  
+  public int computeExp(final Object number) {
+    if (number instanceof NumberImpl) {
+      return _computeExp((NumberImpl)number);
+    } else if (number instanceof ParenthesisImpl) {
+      return _computeExp((ParenthesisImpl)number);
+    } else if (number instanceof BasicExp) {
+      return _computeExp((BasicExp)number);
+    } else if (number instanceof FactorExp) {
+      return _computeExp((FactorExp)number);
+    } else if (number instanceof Parenthesis) {
+      return _computeExp((Parenthesis)number);
+    } else if (number instanceof Exp) {
+      return _computeExp((Exp)number);
+    } else if (number instanceof Number) {
+      return _computeExp((Number)number);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(number).toString());
+    }
+  }
+  
+  public CharSequence displayExp(final Object primary) {
+    if (primary instanceof NumberImpl) {
+      return _displayExp((NumberImpl)primary);
+    } else if (primary instanceof ParenthesisImpl) {
+      return _displayExp((ParenthesisImpl)primary);
+    } else if (primary instanceof BasicExp) {
+      return _displayExp((BasicExp)primary);
+    } else if (primary instanceof FactorExp) {
+      return _displayExp((FactorExp)primary);
+    } else if (primary instanceof Parenthesis) {
+      return _displayExp((Parenthesis)primary);
+    } else if (primary instanceof Exp) {
+      return _displayExp((Exp)primary);
+    } else if (primary instanceof Number) {
+      return _displayExp((Number)primary);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(primary).toString());
+    }
   }
   
   public String displayOp(final EObject op) {
